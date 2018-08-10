@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sf.kh.dao.mapper.UserReceiveDtoMapper">
+
+    <resultMap type="com.sf.kh.dto.UserReceiveDto" id="userReceiveDtoResultMap">
+      <id property="provinceName" column="province_name" />
+      <id property="cityName" column="city_name" />
+      <id property="areaName" column="area_name" />
+      <id property="addressDetail" column="address_detail" />
+      <id property="nickName" column="nickname" />
+      <id property="mobilePhone" column="mobile_phone" />
+    </resultMap>
+
+
+    <select id="getUserInfoByDeptId" resultMap="userReceiveDtoResultMap">
+       SELECT
+			t1.province_name,
+			t1.city_name,
+			t1.area_name,
+			t1.address_detail,
+			t3.nickname,
+			t3.mobile_phone
+		FROM t_department t1
+		LEFT JOIN t_user_dept t2 ON (t2.dept_id = t1.id)
+		LEFT JOIN t_user t3 ON (t3.id = t2.user_id)
+		WHERE t1.id = #{deptId}
+		ORDER BY IFNULL(t2.dept_purview, 9) ASC
+		LIMIT 1
+    </select>
+</mapper>

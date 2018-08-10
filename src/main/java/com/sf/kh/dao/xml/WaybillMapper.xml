@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sf.kh.dao.mapper.WaybillMapper" >
+  <resultMap id="BaseResultMap" type="com.sf.kh.model.Waybill" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="waybill_no" property="waybillNo" jdbcType="VARCHAR" />
+    <result column="cust_no" property="custNo" jdbcType="BIGINT" />
+    <result column="consigned_date" property="consignedDate" jdbcType="VARCHAR" />
+    <result column="consigned_time" property="consignedTime" jdbcType="TIMESTAMP" />
+    <result column="payment_type" property="paymentType" jdbcType="VARCHAR" />
+    <result column="real_weight_qty" property="realWeightQty" jdbcType="DOUBLE" />
+    <result column="sender_province" property="senderProvince" jdbcType="VARCHAR" />
+    <result column="sender_city" property="senderCity" jdbcType="VARCHAR" />
+    <result column="dest_province" property="destProvince" jdbcType="VARCHAR" />
+    <result column="dest_city" property="destCity" jdbcType="VARCHAR" />
+    <result column="waybill_status" property="waybillStatus" jdbcType="VARCHAR" />
+    <result column="exception_time" property="exceptionTime" jdbcType="TIMESTAMP" />
+    <result column="exception_describe" property="exceptionDescribe" jdbcType="VARCHAR" />
+    <result column="sign_in_date" property="signInDate" jdbcType="VARCHAR" />
+    <result column="sign_in_time" property="signInTime" jdbcType="TIMESTAMP" />
+    <result column="delivery_duration" property="deliveryDuration" jdbcType="VARCHAR" />
+    <result column="cubage" property="cubage" jdbcType="DOUBLE" />
+    <result column="cubage_describe" property="cubageDescribe" jdbcType="VARCHAR" />
+    <result column="tow" property="tow" jdbcType="VARCHAR" />
+    <result column="no_sign" property="noSign" jdbcType="INTEGER" />
+    <result column="no_route" property="noRoute" jdbcType="INTEGER" />
+    <result column="create_tm" property="createTm" jdbcType="VARCHAR" />
+    <result column="update_tm" property="updateTm" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="baseColumn" >
+    id, waybill_no, cust_no, consigned_date,consigned_time, payment_type, real_weight_qty, sender_province, 
+    sender_city, dest_province, dest_city, waybill_status, exception_time, exception_describe, 
+    sign_in_date,sign_in_time, delivery_duration, cubage, cubage_describe, 
+    tow,no_sign,no_route,create_tm,update_tm
+  </sql>
+  
+  <select id="selectByWaybillNo" resultMap="BaseResultMap">
+  	 select  <include refid="baseColumn" /> from t_waybill
+     where waybill_no = #{waybillNo}
+  </select>
+
+  <insert id="saveList" useGeneratedKeys="true" keyProperty="id">
+    insert into t_waybill (waybill_no, cust_no, consigned_date,consigned_time, 
+      payment_type, real_weight_qty, sender_province, sender_city, 
+      dest_province, dest_city, waybill_status, exception_time, 
+      exception_describe, sign_in_date,sign_in_time, delivery_duration, 
+      cubage, cubage_describe, no_sign,no_route,tow,create_tm,update_tm) values
+    <foreach collection="list" item="item" index= "index" separator =",">
+	    (#{item.waybillNo}, #{item.custNo}, #{item.consignedDate},#{item.consignedTime},
+      	#{item.paymentType}, #{item.realWeightQty}, #{item.senderProvince}, #{item.senderCity},
+        #{item.destProvince}, #{item.destCity}, #{item.waybillStatus}, #{item.exceptionTime},
+      	#{item.exceptionDescribe},#{item.signInDate},#{item.signInTime},#{item.deliveryDuration}, 
+	    #{item.cubage},#{item.cubageDescribe},#{item.noSign},#{item.noRoute},#{item.tow},#{item.createTm},#{item.updateTm})
+	 </foreach>
+  </insert>
+  
+  <update id="updateByIds" parameterType="com.sf.kh.model.Waybill">
+      	<foreach collection="list" item="item" index= "index" separator=";">
+    		update t_waybill set payment_type = #{item.paymentType,jdbcType=VARCHAR},
+    			dest_province = #{item.destProvince,jdbcType=VARCHAR},
+    			dest_city = #{item.destCity,jdbcType=VARCHAR},
+    			waybill_status = #{item.waybillStatus,jdbcType=VARCHAR},
+    			exception_time = #{item.exceptionTime,jdbcType=VARCHAR},
+    			exception_describe = #{item.exceptionDescribe,jdbcType=VARCHAR},
+    			sign_in_date = #{item.signInDate,jdbcType=VARCHAR},
+    			sign_in_time = #{item.signInTime,jdbcType=VARCHAR},
+    			delivery_duration = #{item.deliveryDuration,jdbcType=VARCHAR},
+    			no_sign = #{item.noSign,jdbcType=INTEGER},
+    			no_route = #{item.noRoute,jdbcType=INTEGER},
+    			update_tm = #{item.updateTm,jdbcType=VARCHAR}
+    		where id = #{item.id,jdbcType=BIGINT}
+    	</foreach>
+  </update>
+  
+  
+  <insert id="saveOrUpdateList" parameterType="collection">
+      INSERT INTO t_waybill (
+        waybill_no, cust_no, consigned_date,consigned_time, 
+      	payment_type, real_weight_qty, sender_province, sender_city, 
+      	dest_province, dest_city, waybill_status, exception_time, 
+      	exception_describe, sign_in_date,sign_in_time, delivery_duration, 
+      	cubage, cubage_describe, no_sign,no_route,tow,create_tm,update_tm
+      ) VALUES 
+      <foreach collection="collection" item="item" index="index" separator=",">
+        (#{item.waybillNo}, #{item.custNo}, #{item.consignedDate},#{item.consignedTime},
+      	#{item.paymentType}, #{item.realWeightQty}, #{item.senderProvince}, #{item.senderCity},
+        #{item.destProvince}, #{item.destCity}, #{item.waybillStatus}, #{item.exceptionTime},
+      	#{item.exceptionDescribe},#{item.signInDate},#{item.signInTime},#{item.deliveryDuration}, 
+	    #{item.cubage},#{item.cubageDescribe},#{item.noSign},#{item.noRoute},#{item.tow},#{item.createTm},#{item.updateTm})
+      </foreach>
+      ON DUPLICATE KEY UPDATE 
+      		payment_type = VALUES(payment_type),
+      		real_weight_qty = VALUES(real_weight_qty),
+ 			dest_province = VALUES(dest_province),
+ 			dest_city = VALUES(dest_city),
+ 			waybill_status = VALUES(waybill_status),
+ 			exception_time = VALUES(exception_time),
+ 			exception_describe = VALUES(exception_describe),
+ 			sign_in_date = VALUES(sign_in_date),
+ 			sign_in_time = VALUES(sign_in_time),
+ 			delivery_duration = VALUES(delivery_duration),
+ 			cubage = VALUES(cubage),
+ 			cubage_describe = VALUES(cubage_describe),
+ 			no_sign = VALUES(no_sign),
+ 			no_route = VALUES(no_route),
+ 			tow = VALUES(tow),
+ 			update_tm = VALUES(update_tm)
+  </insert>
+</mapper>

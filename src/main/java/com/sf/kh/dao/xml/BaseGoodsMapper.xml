@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sf.kh.dao.mapper.BaseGoodsMapper" >
+  <resultMap id="baseGoodsResultMap" type="com.sf.kh.model.BaseGoods" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="goods_dept_id" property="goodsDeptId" jdbcType="BIGINT" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_unit" property="goodsUnit" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="BIGINT" />
+    <result column="create_tm" property="createTm" jdbcType="VARCHAR" />
+    <result column="update_tm" property="updateTm" jdbcType="VARCHAR" />
+    <result column="valid" property="valid" jdbcType="SMALLINT" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="baseColumns" >
+    id, goods_dept_id, goods_code, goods_name, goods_unit, create_by, create_tm, 
+    update_tm, valid,version
+  </sql>
+  <select id="query4list" resultMap="baseGoodsResultMap">
+       SELECT <include refid="baseColumns"/> FROM t_base_goods 
+       <where>
+       		valid = 1
+            <if test="goodsDeptId!=null and goodsDeptId.size>0">
+            	and goods_dept_id in
+            	<foreach collection="goodsDeptId" item="item" index="index" open="(" close=")" separator=",">
+            		#{item}
+        		</foreach>
+            </if>
+            <if test="search!=null"> 
+            	and (goods_code like CONCAT('%',#{search},'%') or goods_name like CONCAT('%',#{search},'%'))
+            </if>
+        </where>
+       ORDER BY id desc
+   </select>
+   
+  <delete id="delete" parameterType="java.lang.String" >
+    update t_base_goods set valid = 2  where id = #{id}
+  </delete>
+  
+  <update id="update" parameterType="com.sf.kh.model.BaseGoods" >
+    	update t_base_goods
+    	<set>
+	      <if test="goodsDeptId != null" >
+	        goods_dept_id = #{goodsDeptId,jdbcType=BIGINT},
+	      </if>
+	      <if test="goodsCode != null" >
+	        goods_code = #{goodsCode,jdbcType=VARCHAR},
+	      </if>
+	      <if test="goodsName != null" >
+	        goods_name = #{goodsName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="goodsUnit != null" >
+	        goods_unit = #{goodsUnit,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createBy != null" >
+	        create_by = #{createBy,jdbcType=VARCHAR},
+	      </if>
+	      <if test="updateTm != null" >
+	        update_tm = #{updateTm,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="valid != null" >
+	        valid = #{valid,jdbcType=INTEGER},
+	      </if>
+	    </set>
+    	where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into t_base_goods (goods_dept_id,goods_code,goods_name,goods_unit,create_by,create_tm,valid) values
+    <foreach collection="list" item="item" index= "index" separator =",">
+	    (
+	        #{item.goodsDeptId},
+	        #{item.goodsCode},
+	        #{item.goodsName},
+	        #{item.goodsUnit},
+	        #{item.createBy},
+	        #{item.createTm},
+	        1
+	    )
+	 </foreach>
+  </insert>
+  
+  <select id="getGoodsByCategoryId" parameterType="java.lang.String" resultMap="baseGoodsResultMap">
+   	   SELECT <include refid="baseColumns"/> FROM t_base_goods 
+       where valid = 1 and goods_dept_id in (select id from t_goods_dept where category_id = #{categoryId})
+       ORDER BY update_tm DESC 
+  </select>
+  
+  <select id="getAllData">
+   	   SELECT <include refid="baseColumns"/> FROM t_base_goods where valid = 1
+       ORDER BY update_tm DESC 
+  </select>
+  
+  <select id="getBaseGoodsById" parameterType="java.lang.Long" resultMap="baseGoodsResultMap">
+  	   SELECT <include refid="baseColumns"/>
+  	   FROM t_base_goods
+       where valid = 1 and id = #{id}
+  </select>
+  
+  <select id="getBaseGoodsListByIds" resultMap="baseGoodsResultMap">
+  	   SELECT <include refid="baseColumns"/>
+  	   FROM t_base_goods where valid = 1 and id in
+	   <foreach collection="list" item="item" open="(" separator="," close=")">
+             #{item}
+  		</foreach>
+  </select>
+
+  <select id="getGoodsByGoodsCode" parameterType="java.lang.String" resultMap="baseGoodsResultMap">
+ 	   SELECT <include refid="baseColumns"/>
+  	   FROM t_base_goods
+       where goods_code = #{goodsCode}
+  </select>
+  
+  <select id="queryGoodsIdBySpecialtyIdAndCategoryId" resultType="Long">
+    SELECT bg.id
+    FROM t_base_goods bg
+    JOIN t_goods_dept gd ON (bg.goods_dept_id = gd.id)
+    WHERE bg.valid = 1 and gd.parent_category_id = #{specialtyId}
+      <if test="categoryId!=null">AND category_id=#{categoryId}</if>
+      <if test="parentOrgId!=null">AND parent_org_id=#{parentOrgId}</if>
+      <if test="orgId!=null">AND org_id=#{orgId}</if>
+  </select>
+  
+  <select id="queryGoodsIdBySpecialtyIdAndCategoryIds" resultType="Long">
+    SELECT bg.id
+    FROM t_base_goods bg
+    JOIN t_goods_dept gd ON (bg.goods_dept_id = gd.id)
+    WHERE bg.valid = 1 and gd.parent_category_id = #{specialtyId}
+      <if test="categoryIds!=null and categoryIds.size>0">
+      	AND category_id in 
+       	<foreach collection="categoryIds" item="item" open="(" separator="," close=")">
+             #{item}
+  		</foreach>
+      </if>
+  </select>
+  
+  <insert id="saveOrUpdateList" parameterType="collection">
+      INSERT INTO t_base_goods (
+        goods_dept_id, goods_code, goods_name, goods_unit, create_by, create_tm, 
+    	update_tm, valid
+      ) VALUES 
+      <foreach collection="collection" item="item" index="index" separator=",">
+        (#{item.goodsDeptId}, #{item.goodsCode}, #{item.goodsName},#{item.goodsUnit},
+      	#{item.createBy}, #{item.createTm}, #{item.updateTm}, 1)
+      </foreach>
+      ON DUPLICATE KEY UPDATE 
+      		goods_dept_id = VALUES(goods_dept_id),
+ 			goods_name = VALUES(goods_name),
+ 			goods_unit = VALUES(goods_unit),
+ 			update_tm = VALUES(update_tm),
+ 			valid = VALUES(valid)
+  </insert>
+</mapper>

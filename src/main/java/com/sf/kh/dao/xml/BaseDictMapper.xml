@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sf.kh.dao.mapper.BaseDictMapper" >
+  <resultMap id="baseDictResultMap" type="com.sf.kh.model.BaseDict" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="BIGINT" />
+    <result column="create_tm" property="createTm" jdbcType="TIMESTAMP" />
+    <result column="update_tm" property="updateTm" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="baseColumns" >
+    id, type, parent_id, name, order_num, create_by, create_tm, update_tm, version
+  </sql>
+  <select id="getListByType" resultMap="baseDictResultMap">
+        SELECT <include refid="baseColumns"/> FROM t_base_dict WHERE type=#{type}
+  </select>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.sf.kh.model.BaseDict">
+  	INSERT INTO t_base_dict (
+        type, parent_id, name, create_by, create_tm
+     ) VALUES (
+         #{type},#{parentId},#{name},#{createBy},#{createTm}
+     )
+  </insert>
+  
+  <select id="getBaseDictByTypeAndName" resultMap="baseDictResultMap">
+  		SELECT <include refid="baseColumns"/> FROM t_base_dict WHERE type=#{type} and name = #{name}
+  </select>
+  
+  
+  <select id="getSonsByTypeAndParentId" resultMap="baseDictResultMap">
+  		SELECT <include refid="baseColumns"/> FROM t_base_dict WHERE type=#{type} and parent_id = #{parentId}
+  </select>
+  
+  
+  <select id="getListByTypeAndObj" resultMap="baseDictResultMap">
+        SELECT <include refid="baseColumns"/> FROM t_base_dict 
+        WHERE type=#{type}
+        <if test="baseDict.parentId!=null">
+        	and parent_id = #{baseDict.parentId}
+        </if>
+        <if test="baseDict.id != null">
+        	and id = #{baseDict.id}
+        </if>
+  </select>
+</mapper>

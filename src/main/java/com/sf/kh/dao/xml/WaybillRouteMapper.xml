@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sf.kh.dao.mapper.WaybillRouteMapper">
+  <resultMap id="baseResultMap" type="com.sf.kh.model.WaybillRoute">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="waybill_no" jdbcType="VARCHAR" property="waybillNo" />
+    <result column="route_date" jdbcType="VARCHAR" property="routeDate" />
+    <result column="route_describe" jdbcType="VARCHAR" property="routeDescribe" />
+    <result column="bar_date" jdbcType="VARCHAR" property="barDate" />
+    <result column="waybil_status" jdbcType="SMALLINT" property="waybilStatus" />
+  </resultMap>
+  <sql id="baseColumn">
+    id, waybill_no, route_date, route_describe, bar_date, waybil_status
+  </sql>
+  
+  <select id="getTop1ByWaybillNo" resultMap="baseResultMap">
+    select <include refid="baseColumn" />
+    from t_waybill_route
+    where waybill_no=#{waybillNo} order by bar_date desc limit 1
+  </select>
+  
+  <insert id="saveList" useGeneratedKeys="true" keyProperty="id">
+  	insert into t_waybill_route (waybill_no, route_date, route_describe, bar_date, waybil_status) values
+    <foreach collection="list" item="item" index= "index" separator =",">
+	    (#{item.waybillNo}, #{item.routeDate}, #{item.routeDescribe},
+	     #{item.barDate}, #{item.waybilStatus})
+	 </foreach>
+  </insert>
+  
+  <delete id="deleteByWaybillNo">
+	  	<if test="waybillNos!=null and waybillNos.size>0">
+	  		<foreach collection="waybillNos" item="item" index= "index" separator =";">
+	  			delete from t_waybill_route where waybill_no = #{item}
+	  		</foreach>
+	  	</if>
+  </delete>
+
+  <select id="getByWaybillNo" resultMap="baseResultMap">
+    select <include refid="baseColumn" />
+    from t_waybill_route
+    where waybill_no=#{waybillNo} order by bar_date desc
+  </select>
+  
+  <select id="getSignWaybillsByRecent15Days" resultType="java.lang.String">
+  	select distinct waybill_no from t_waybill_route
+	where waybil_status = 1 and bar_date between #{startDate} and #{endDate}
+  </select>
+
+</mapper>

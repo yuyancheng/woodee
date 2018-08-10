@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sf.kh.dao.mapper.DepartmentMapper" >
+
+
+  <sql id="Base_Column_List" >
+    id, dept_name, parent_dept_id, top_dept_id, org_id, org_type_id,
+    province_name, city_name, area_name, address_detail, cust_no, dept_path,
+    valid, head_quarter, create_tm, update_by, update_tm, version
+  </sql>
+
+
+  <select id="selectByPrimaryKey" resultType="com.sf.kh.model.Department" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_department
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey">
+    delete from t_department
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.sf.kh.model.Department" useGeneratedKeys="true" keyProperty="id">
+
+    insert into t_department (
+      id,
+      dept_name,
+      parent_dept_id,
+      top_dept_id,
+      org_id,
+      org_type_id,
+      province_name,
+      city_name,
+      area_name,
+      address_detail,
+      cust_no,
+      dept_path,
+      valid,
+      head_quarter,
+      create_by,
+      create_tm,
+      update_by,
+      update_tm,
+      version
+      )
+    values (
+      #{id},
+      #{deptName,jdbcType=VARCHAR},
+      #{parentDeptId,jdbcType=BIGINT},
+      #{topDeptId,jdbcType=BIGINT},
+      #{orgId,jdbcType=BIGINT},
+      #{orgTypeId,jdbcType=BIGINT},
+      #{provinceName,jdbcType=VARCHAR},
+      #{cityName,jdbcType=VARCHAR},
+      #{areaName,jdbcType=VARCHAR},
+      #{addressDetail,jdbcType=VARCHAR},
+      #{custNo,jdbcType=VARCHAR},
+      #{deptPath,jdbcType=VARCHAR},
+      #{valid,jdbcType=INTEGER},
+      #{headQuarter,jdbcType=INTEGER},
+      #{createBy,jdbcType=BIGINT},
+      #{createTm,jdbcType=TIMESTAMP},
+      #{updateBy,jdbcType=BIGINT},
+      #{updateTm,jdbcType=TIMESTAMP},
+      #{version,jdbcType=INTEGER}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.sf.kh.model.Department"  useGeneratedKeys="true" keyProperty="id">
+    insert into t_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deptName != null" >
+        dept_name,
+      </if>
+      <if test="parentDeptId != null" >
+        parent_dept_id,
+      </if>
+      <if test="topDeptId != null" >
+        top_dept_id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="orgTypeId != null" >
+        org_type_id,
+      </if>
+      <if test="provinceName != null" >
+        province_name,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="areaName != null" >
+        area_name,
+      </if>
+      <if test="addressDetail != null" >
+        address_detail,
+      </if>
+      <if test="custNo != null" >
+        cust_no,
+      </if>
+
+      <if test="deptPath != null" >
+        dept_path,
+      </if>
+
+      <if test="valid != null" >
+        valid,
+      </if>
+      <if test="headQuarter != null" >
+        head_quarter,
+      </if>
+
+      <if test="createBy != null" >
+        create_by,
+      </if>
+
+      <if test="createTm != null" >
+        create_tm,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateTm != null" >
+        update_tm,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="deptName != null" >
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentDeptId != null" >
+        #{parentDeptId,jdbcType=BIGINT},
+      </if>
+
+      <if test="topDeptId != null">
+        #{topDeptId,jdbcType=BIGINT},
+      </if>
+
+      <if test="orgId != null" >
+        #{orgId,jdbcType=BIGINT},
+      </if>
+
+      <if test="orgTypeId != null" >
+        #{orgTypeId,jdbcType=BIGINT},
+      </if>
+
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null" >
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null" >
+        #{addressDetail,jdbcType=VARCHAR},
+      </if>
+
+      <if test="custNo != null" >
+        #{custNo,jdbcType=VARCHAR},
+      </if>
+
+      <if test="deptPath != null" >
+        #{deptPath,jdbcType=VARCHAR},
+      </if>
+
+      <if test="valid != null" >
+        #{valid,jdbcType=INTEGER},
+      </if>
+
+      <if test="headQuarter != null" >
+        #{headQuarter,jdbcType=INTEGER},
+      </if>
+
+      <if test="createBy != null" >
+        #{createBy,jdbcType=BIGINT},
+      </if>
+
+      <if test="createTm != null" >
+        #{createTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateTm != null" >
+        #{updateTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.sf.kh.model.Department">
+    update t_department
+    <set >
+      <if test="deptName != null" >
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentDeptId != null" >
+        parent_dept_id = #{parentDeptId,jdbcType=BIGINT},
+      </if>
+      <if test="topDeptId != null" >
+        top_dept_id = #{topDeptId,jdbcType=BIGINT},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=BIGINT},
+      </if>
+
+      <if test="orgTypeId != null" >
+        org_type_id = #{orgTypeId,jdbcType=BIGINT},
+      </if>
+
+      <if test="provinceName != null" >
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null" >
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null" >
+        address_detail = #{addressDetail,jdbcType=VARCHAR},
+      </if>
+
+      <if test="custNo != null" >
+        cust_no = #{custNo,jdbcType=VARCHAR},
+      </if>
+
+      <if test="deptPath != null" >
+        dept_path = #{deptPath,jdbcType=VARCHAR},
+      </if>
+
+
+      <if test="valid != null" >
+        valid = #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="headQuarter != null" >
+        head_quarter = #{headQuarter,jdbcType=VARCHAR},
+      </if>
+
+
+      <if test="createBy != null" >
+        create_tm = #{createBy,jdbcType=BIGINT},
+      </if>
+
+      <if test="createTm != null" >
+        create_tm = #{createTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateTm != null" >
+        update_tm = #{updateTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKey"  parameterType="com.sf.kh.model.Department">
+    update t_department
+    set dept_name = #{deptName,jdbcType=VARCHAR},
+      parent_dept_id = #{parentDeptId,jdbcType=BIGINT},
+      top_dept_id = #{topDeptId,jdbcType=BIGINT},
+      org_id = #{orgId,jdbcType=BIGINT},
+      org_type_id = #{orgTypeId,jdbcType=BIGINT},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      area_name = #{areaName,jdbcType=VARCHAR},
+      address_detail = #{addressDetail,jdbcType=VARCHAR},
+      cust_no = #{custNo,jdbcType=VARCHAR},
+      dept_path = #{deptPath,jdbcType=VARCHAR},
+      valid = #{valid,jdbcType=INTEGER},
+      head_quarter = #{headQuarter,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=BIGINT},
+      create_tm = #{createTm,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=BIGINT},
+      update_tm = #{updateTm,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectAll" resultType="com.sf.kh.model.Department">
+    select
+    <include refid="Base_Column_List" />
+    from t_department
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+  <select id="query4list" resultType="com.sf.kh.model.Department">
+    select
+    <include refid="Base_Column_List" />
+    from t_department
+    <where>
+      <if test="id!=null">
+        AND id = #{id, jdbcType=BIGINT}
+      </if>
+      <if test="deptName != null" >
+        AND dept_name = #{deptName,jdbcType=VARCHAR}
+      </if>
+      <if test="parentDeptId != null" >
+        AND parent_dept_id = #{parentDeptId,jdbcType=BIGINT}
+      </if>
+
+      <if test="parentDeptIdList != null and parentDeptIdList.size()>0" >
+        AND parent_dept_id in
+        <foreach collection="parentDeptIdList" index="index" item="item" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+
+      <if test="topDeptId != null" >
+        AND top_dept_id = #{topDeptId,jdbcType=BIGINT}
+      </if>
+      <if test="orgId != null" >
+        AND org_id = #{orgId,jdbcType=BIGINT}
+      </if>
+      <if test="orgTypeId != null" >
+        AND org_type_id = #{orgTypeId,jdbcType=BIGINT}
+      </if>
+      <if test="provinceName != null" >
+        AND province_name = #{provinceName,jdbcType=VARCHAR}
+      </if>
+      <if test="cityName != null" >
+        AND city_name = #{cityName,jdbcType=VARCHAR}
+      </if>
+      <if test="areaName != null" >
+        AND area_name = #{areaName,jdbcType=VARCHAR}
+      </if>
+      <if test="addressDetail != null" >
+        AND address_detail = #{addressDetail,jdbcType=VARCHAR}
+      </if>
+      <if test="custNo != null" >
+        AND  cust_no = #{custNo,jdbcType=VARCHAR}
+      </if>
+
+      <if test="custNoList != null and custNoList.size()>0" >
+        AND cust_no in
+        <foreach collection="custNoList" index="index" item="item" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+
+
+      <if test="deptPath != null" >
+        AND  dept_path = #{deptPath,jdbcType=VARCHAR}
+      </if>
+      <if test="valid != null" >
+        AND valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="headQuarter != null" >
+        AND  head_quarter = #{headQuarter,jdbcType=INTEGER}
+      </if>
+      <if test="createBy != null" >
+        AND  create_by = #{createby,jdbcType=BIGINT}
+      </if>
+      <if test="createTm != null" >
+        AND  create_tm = #{createTm,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateBy != null" >
+        AND update_by = #{updateBy,jdbcType=BIGINT}
+      </if>
+      <if test="updateTm != null" >
+        AND update_tm = #{updateTm,jdbcType=TIMESTAMP}
+      </if>
+      <if test="version != null" >
+        AND version = #{version,jdbcType=INTEGER}
+      </if>
+      <if test="deptNameFuzzy!=null and deptNameFuzzy!='' ">
+        AND dept_name like concat( "%", #{deptNameFuzzy, jdbcType=VARCHAR}, "%")
+      </if>
+    </where>
+    ORDER BY update_tm DESC
+  </select>
+
+
+  <select id="selectByOrgNameDeptName" resultType="com.sf.kh.model.Department" >
+    select
+      d.id, d.dept_name, d.parent_dept_id, d.top_dept_id, d.org_id, d.org_type_id,
+      d.province_name, d.city_name, d.area_name, d.address_detail, d.cust_no, d.dept_path,
+      d.valid, d.head_quarter, d.create_tm, d.update_by, d.update_tm, d.version
+    from t_department d, t_org o
+    where d.org_id = o.id
+    AND d.dept_name = #{deptName,jdbcType=VARCHAR}
+    AND o.org_name = #{orgName, jdbcType=VARCHAR}
+    AND o.org_type_id = #{orgTypeId, jdbcType=BIGINT}
+    AND d.valid = 1
+  </select>
+
+
+
+  <update id="updateByIdsBatch" parameterType="com.sf.kh.model.Department">
+    update t_department
+    <set >
+      <if test="valid != null" >
+        valid = #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateTm != null" >
+        update_tm = #{updateTm,jdbcType=TIMESTAMP},
+      </if>
+        version = version+1,
+    </set>
+    where id in
+    <foreach collection="deptIds" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+
+
+</mapper>

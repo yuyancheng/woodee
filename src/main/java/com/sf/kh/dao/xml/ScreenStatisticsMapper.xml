@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sf.kh.dao.mapper.ScreenStatisticsMapper">
+
+  <insert id="insertOrUpdate" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO t_screen_config (
+      user_id,screen_code,screen_name,start_city,
+      sender_org_type_id,sender_org_id,sender_dept_id,
+      receiver_org_type_id,receiver_org_id,receiver_dept_id,
+      specialty_id,category_id,goods_id,
+      start_tm,end_tm,create_tm,update_tm,version
+    ) VALUES (
+      #{userId},#{screenCode},#{screenName},#{startCity},
+      #{senderOrgTypeId},#{senderOrgId},#{senderDeptId},
+      #{receiverOrgTypeId},#{receiverOrgId},#{receiverDeptId},
+      #{specialtyId},#{categoryId},#{goodsId},
+      #{startTm},#{endTm},NOW(),NOW(),1
+    )
+    ON DUPLICATE KEY UPDATE
+      /* screen_name=VALUES(screen_name), */start_city=VALUES(start_city),
+      sender_org_type_id=VALUES(sender_org_type_id),sender_org_id=VALUES(sender_org_id),
+      sender_dept_id=VALUES(sender_dept_id),receiver_org_type_id=VALUES(receiver_org_type_id),
+      receiver_org_id=VALUES(receiver_org_id),receiver_dept_id=VALUES(receiver_dept_id),
+      specialty_id=VALUES(specialty_id),category_id=VALUES(category_id),
+      goods_id=VALUES(goods_id),start_tm=VALUES(start_tm),
+      end_tm=VALUES(end_tm),update_tm=NOW(),version=version+1
+  </insert>
+
+  <delete id="deleteByUserId">
+    DELETE FROM t_screen_config WHERE user_id=#{userId}
+  </delete>
+
+  <select id="getByUserIdAndScreenCode" resultType="screenConfig">
+    SELECT id,user_id,screen_code,screen_name,start_city,
+           sender_org_type_id,sender_org_id,sender_dept_id,
+           receiver_org_type_id,receiver_org_id,receiver_dept_id,
+           specialty_id,category_id,goods_id,
+           start_tm,end_tm,create_tm,update_tm,version
+    FROM t_screen_config
+    WHERE user_id=#{userId} AND screen_code=#{screenCode}
+  </select>
+
+
+  <sql id="query_base_sql">
+    FROM t_waybill w
+    JOIN t_despatch_batch db ON (db.waybill_no = w.waybill_no)
+    <if test="goodsIds!=null and goodsIds.size>0">
+      JOIN t_despatch_goods dg ON (dg.batch_id = db.batch_id)
+    </if>
+    WHERE w.consigned_time >= #{startTm}
+    <if test="endTm!=null">
+      AND w.consigned_time &lt;= #{endTm}
+    </if>
+    <if test="senderDeptIds!=null and senderDeptIds.size>0">
+      AND db.send_company_id IN <foreach collection="senderDeptIds" item="i" index="idx" open="(" close=")" separator=",">#{i}</foreach>
+    </if>
+    <if test="receiverDeptIds!=null and receiverDeptIds.size>0">
+      AND db.receive_company_id IN <foreach collection="receiverDeptIds" item="i" index="idx" open="(" close=")" separator=",">#{i}</foreach>
+    </if>
+    <if test="goodsIds!=null and goodsIds.size>0">
+      AND dg.goods_id IN <foreach collection="goodsIds" item="i" index="idx" open="(" close=")" separator=",">#{i}</foreach>
+    </if>
+  </sql>
+
+  <!-- screen overview -->
+  <select id="waybillStatusDistribution" resultType="map">
+    SELECT SUM(all_qty) all_qty,
+           SUM(signed_qty) signed_qty,
+           SUM(except_qty) except_qty
+    FROM (
+      SELECT COUNT(DISTINCT db.waybill_no) all_qty,
+             0 signed_qty,
+             0 except_qty
+      <include refid="query_base_sql" />
+
+      UNION ALL
+
+      SELECT 0 all_qty,
+             COUNT(DISTINCT db.waybill_no) signed_qty,
+             0 except_qty
+      <include refid="query_base_sql" />
+        AND w.waybill_status='已签收'
+
+      UNION ALL
+
+      SELECT 0 all_qty,
+             0 signed_qty,
+             COUNT(DISTINCT db.waybill_no) except_qty
+      <include refid="query_base_sql" />
+        AND ( w.exception_time IS NOT NULL OR w.no_sign > 0 OR w.no_route > 0
+              OR (w.exception_describe IS NOT NULL AND w.exception_describe != '')
+            )
+    ) t
+  </select>
+  <!--<select id="waybillStatusDistribution" resultType="map">
+    SELECT SUM(1) all_qty,
+           SUM(IF(w.waybill_status='已签收', 1, 0)) signed_qty,
+           SUM(IF(w.exception_time IS NOT NULL OR w.exception_describe IS NOT NULL OR w.no_sign > 0 OR w.no_route > 0, 1, 0)) except_qty
+    <include refid="query_base_sql" />
+  </select>-->
+
+  <select id="waybillCityDistribution" resultType="map">
+    SELECT count(DISTINCT db.waybill_no) qty,
+           w.dest_city city
+    <include refid="query_base_sql" />
+    GROUP BY w.dest_city
+    ORDER BY qty DESC
+  </select>
+
+
+  <!-- screen status monitor -->
+  <sql id="query_monitor_sql">
+    SELECT w.dest_city city,
+           SUM(<choose><when test="goodsIds!=null and goodsIds.size>0">dg</when><otherwise>db</otherwise></choose>.goods_num) qty
+    <include refid="query_base_sql" />
+  </sql>
+
+  <select id="waybillDeliverFlow" resultType="map">
+      <include refid="query_monitor_sql" />
+        AND w.waybill_status='正在派送'
+    GROUP BY w.dest_city
+    ORDER BY qty DESC
+  </select>
+
+  <select id="waybillOnlineFlow" resultType="map">
+    <include refid="query_monitor_sql" />
+      AND w.waybill_status='在途'
+    GROUP BY w.dest_city
+    ORDER BY qty DESC
+  </select>
+
+  <select id="waybillSignedFlow" resultType="map">
+    <include refid="query_monitor_sql" />
+      AND w.waybill_status='已签收'
+    GROUP BY w.dest_city
+    ORDER BY qty DESC
+  </select>
+
+  <select id="waybillExceptFlow" resultType="map">
+    <include refid="query_monitor_sql" />
+      AND ( w.exception_time IS NOT NULL OR w.no_sign > 0 OR w.no_route > 0
+            OR (w.exception_describe IS NOT NULL AND w.exception_describe != '')
+          )
+    GROUP BY w.dest_city
+    ORDER BY qty DESC
+  </select>
+
+</mapper>

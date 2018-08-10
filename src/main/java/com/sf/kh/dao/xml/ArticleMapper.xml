@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  <mapper namespace="com.sf.kh.dao.mapper.ArticleMapper" >
+    <resultMap id="BaseResultMap" type="com.sf.kh.model.Article" >
+      <id column="id" property="id" jdbcType="BIGINT" />
+      <result column="title" property="title" jdbcType="VARCHAR" />
+      <result column="author_id" property="authorId" jdbcType="BIGINT" />
+      <result column="author_name" property="authorName" jdbcType="VARCHAR" />
+      <result column="type_id" property="typeId" jdbcType="BIGINT" />
+      <result column="publish_status" property="publishStatus" jdbcType="BIT" />
+      <result column="publish_tm" property="publishTm" jdbcType="TIMESTAMP" />
+      <result column="top" property="top" jdbcType="BIT" />
+      <result column="speed" property="speed" jdbcType="BIT" />
+      <result column="create_by" property="createBy" jdbcType="BIGINT" />
+      <result column="create_tm" property="createTm" jdbcType="TIMESTAMP" />
+      <result column="update_by" property="updateBy" jdbcType="BIGINT" />
+      <result column="update_tm" property="updateTm" jdbcType="TIMESTAMP" />
+      <result column="version" property="version" jdbcType="INTEGER" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.sf.kh.model.Article" extends="BaseResultMap" >
+      <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    id, title, author_id, author_name, type_id, publish_status, publish_tm, top, speed, create_by, create_tm, update_by,
+    update_tm, version
+  </sql>
+
+    <sql id="Blob_Column_List" >
+    content
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+      select
+      <include refid="Base_Column_List" />
+      ,
+      <include refid="Blob_Column_List" />
+      from t_article
+      where id = #{id,jdbcType=BIGINT}
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_article
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+
+    <insert id="insert" parameterType="com.sf.kh.model.Article" useGeneratedKeys="true" keyProperty="id">
+    insert into t_article (id, title, author_id,
+      author_name, type_id, publish_status, publish_tm,
+      top, speed, create_by, create_tm, update_by,
+      update_tm, version, content
+      )
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{authorId,jdbcType=BIGINT},
+      #{authorName,jdbcType=VARCHAR}, #{typeId,jdbcType=BIGINT}, #{publishStatus,jdbcType=BIT}, #{publishTm,jdbcType=TIMESTAMP},
+      #{top,jdbcType=BIT}, #{speed,jdbcType=BIT}, #{createBy,jdbcType=BIGINT}, #{createTm,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=BIGINT},
+      #{updateTm,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+
+
+    <insert id="insertSelective" parameterType="com.sf.kh.model.Article" useGeneratedKeys="true" keyProperty="id">
+      insert into t_article
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          id,
+        </if>
+        <if test="title != null" >
+          title,
+        </if>
+        <if test="authorId != null" >
+          author_id,
+        </if>
+        <if test="author_name != null" >
+          author_name,
+        </if>
+        <if test="typeId != null" >
+          type_id,
+        </if>
+        <if test="publishStatus != null" >
+          publish_status,
+        </if>
+        <if test="publishTm != null" >
+          publish_tm,
+        </if>
+        <if test="top != null" >
+          top,
+        </if>
+        <if test="speed != null" >
+          speed,
+        </if>
+
+        <if test="createBy != null" >
+          create_by,
+        </if>
+
+        <if test="createTm != null" >
+          create_tm,
+        </if>
+        <if test="updateBy != null" >
+          update_by,
+        </if>
+        <if test="updateTm != null" >
+          update_tm,
+        </if>
+        <if test="version != null" >
+          version,
+        </if>
+        <if test="content != null" >
+          content,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          #{id,jdbcType=BIGINT},
+        </if>
+        <if test="title != null" >
+          #{title,jdbcType=VARCHAR},
+        </if>
+        <if test="authorId != null" >
+          #{authorId,jdbcType=BIGINT},
+        </if>
+        <if test="authorName != null" >
+          #{authorName,jdbcType=VARCHAR},
+        </if>
+        <if test="typeId != null" >
+          #{typeId,jdbcType=BIGINT},
+        </if>
+        <if test="publishStatus != null" >
+          #{publishStatus,jdbcType=BIT},
+        </if>
+        <if test="publishTm != null" >
+          #{publishTm,jdbcType=TIMESTAMP},
+        </if>
+        <if test="top != null" >
+          #{top,jdbcType=BIT},
+        </if>
+        <if test="speed != null" >
+          #{speed,jdbcType=BIT},
+        </if>
+
+        <if test="createBy != null" >
+          #{createBy,jdbcType=BIGINT},
+        </if>
+
+        <if test="createTm != null" >
+          #{createTm,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateBy != null" >
+          #{updateBy,jdbcType=BIGINT},
+        </if>
+        <if test="updateTm != null" >
+          #{updateTm,jdbcType=TIMESTAMP},
+        </if>
+        <if test="version != null" >
+          #{version,jdbcType=INTEGER},
+        </if>
+        <if test="content != null" >
+          #{content,jdbcType=LONGVARCHAR},
+        </if>
+      </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sf.kh.model.Article" >
+      update t_article
+      <set >
+        <if test="title != null" >
+          title = #{title,jdbcType=VARCHAR},
+        </if>
+        <if test="authorId != null" >
+          author_id = #{authorId,jdbcType=BIGINT},
+        </if>
+        <if test="authorName != null" >
+          author_name = #{authorName,jdbcType=VARCHAR},
+        </if>
+        <if test="typeId != null" >
+          type_id = #{typeId,jdbcType=BIGINT},
+        </if>
+        <if test="publishStatus != null" >
+          publish_status = #{publishStatus,jdbcType=BIT},
+        </if>
+        <if test="publishTm != null" >
+          publish_tm = #{publishTm,jdbcType=TIMESTAMP},
+        </if>
+        <if test="top != null" >
+          top = #{top,jdbcType=BIT},
+        </if>
+        <if test="speed != null" >
+          speed = #{speed,jdbcType=BIT},
+        </if>
+
+        <if test="createBy != null" >
+          create_by = #{createBy,jdbcType=BIGINT},
+        </if>
+
+        <if test="createTm != null" >
+          create_tm = #{createTm,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateBy != null" >
+          update_by = #{updateBy,jdbcType=BIGINT},
+        </if>
+        <if test="updateTm != null" >
+          update_tm = #{updateTm,jdbcType=TIMESTAMP},
+        </if>
+        <if test="version != null" >
+          version = #{version,jdbcType=INTEGER},
+        </if>
+        <if test="content != null" >
+          content = #{content,jdbcType=LONGVARCHAR},
+        </if>
+      </set>
+      where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sf.kh.model.Article" >
+    update t_article
+    set title = #{title,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=BIGINT},
+      author_name = #{authorName,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=BIGINT},
+      publish_status = #{publishStatus,jdbcType=BIT},
+      publish_tm = #{publishTm,jdbcType=TIMESTAMP},
+      top = #{top,jdbcType=BIT},
+      speed = #{speed,jdbcType=BIT},
+      create_by = #{createBy,jdbcType=BIGINT},
+      create_tm = #{createTm,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=BIGINT},
+      update_tm = #{updateTm,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.sf.kh.model.Article" >
+    update t_article
+    set title = #{title,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=BIGINT},
+      author_name = #{authorName,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=BIGINT},
+      publish_status = #{publishStatus,jdbcType=BIT},
+      publish_tm = #{publishTm,jdbcType=TIMESTAMP},
+      top = #{top,jdbcType=BIT},
+      speed = #{speed,jdbcType=BIT},
+      create_by = #{createBy,jdbcType=BIGINT},
+      create_tm = #{createTm,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=BIGINT},
+      update_tm = #{updateTm,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="query4listWithContent" resultType="com.sf.kh.model.Article">
+    select
+    <include refid="Base_Column_List"/>, content
+    from t_article
+    <where>
+      <if test="id != null">
+        AND id = #{id, jdbcType=BIGINT}
+      </if>
+      <if test="title != null" >
+        AND title = #{title,jdbcType=VARCHAR}
+      </if>
+      <if test="authorId != null" >
+        AND author_id = #{authorId,jdbcType=BIGINT}
+      </if>
+      <if test="authorName != null" >
+        AND author_name = #{authorName,jdbcType=VARCHAR}
+      </if>
+      <if test="typeId != null" >
+        AND type_id = #{typeId,jdbcType=BIGINT}
+      </if>
+      <if test="publishStatus != null" >
+        AND publish_status = #{publishStatus,jdbcType=BIT}
+      </if>
+
+      <if test="publishTm != null" >
+        AND publish_tm = #{publishTm,jdbcType=TIMESTAMP}
+      </if>
+      <if test="top != null" >
+        AND top = #{top,jdbcType=BIT}
+      </if>
+      <if test="speed != null" >
+        AND speed = #{speed,jdbcType=BIT}
+      </if>
+
+      <if test="createBy != null" >
+        AND create_by = #{createBy,jdbcType=BIGINT}
+      </if>
+
+      <if test="createTm != null" >
+        AND create_tm = #{createTm,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateBy != null" >
+        AND update_by = #{updateBy,jdbcType=BIGINT}
+      </if>
+      <if test="updateTm != null" >
+        AND update_tm = #{updateTm,jdbcType=TIMESTAMP}
+      </if>
+      <if test="version != null" >
+        AND version = #{version,jdbcType=INTEGER}
+      </if>
+      <if test="content != null" >
+        AND content = #{content,jdbcType=LONGVARCHAR}
+      </if>
+
+      <if test="titleFuzzy != null" >
+        AND  title like CONCAT(#{title,jdbcType=VARCHAR}, '%')
+      </if>
+
+    </where>
+    ORDER BY top, update_tm DESC
+  </select>
+
+
+  <select id="query4list" resultType="com.sf.kh.model.Article">
+    select
+    <include refid="Base_Column_List"/>
+    from t_article
+    <where>
+      <if test="id != null">
+       AND id = #{id, jdbcType=BIGINT}
+      </if>
+      <if test="title != null" >
+        AND title = #{title,jdbcType=VARCHAR}
+      </if>
+      <if test="authorId != null" >
+        AND author_id = #{authorId,jdbcType=BIGINT}
+      </if>
+      <if test="authorName != null" >
+        AND author_name = #{authorName,jdbcType=VARCHAR}
+      </if>
+      <if test="typeId != null" >
+        AND type_id = #{typeId,jdbcType=BIGINT}
+      </if>
+      <if test="publishStatus != null" >
+        AND publish_status = #{publishStatus,jdbcType=BIT}
+      </if>
+
+      <if test="publishTm != null" >
+        AND publish_tm = #{publishTm,jdbcType=TIMESTAMP}
+      </if>
+      <if test="top != null" >
+        AND top = #{top,jdbcType=BIT}
+      </if>
+      <if test="speed != null" >
+        AND speed = #{speed,jdbcType=BIT}
+      </if>
+
+      <if test="createBy != null" >
+        AND create_by = #{createBy,jdbcType=BIGINT}
+      </if>
+
+      <if test="createTm != null" >
+        AND create_tm = #{createTm,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateBy != null" >
+        AND update_by = #{updateBy,jdbcType=BIGINT}
+      </if>
+      <if test="updateTm != null" >
+        AND update_tm = #{updateTm,jdbcType=TIMESTAMP}
+      </if>
+      <if test="version != null" >
+        AND version = #{version,jdbcType=INTEGER}
+      </if>
+      <if test="content != null" >
+        AND content = #{content,jdbcType=LONGVARCHAR}
+      </if>
+
+      <if test="titleFuzzy != null" >
+        AND  title like CONCAT('%',#{titleFuzzy,jdbcType=VARCHAR}, '%')
+      </if>
+
+    </where>
+    ORDER BY top, update_tm DESC
+  </select>
+
+
+  <delete id="batchDeleteByPrimaryKey" parameterType="java.util.ArrayList">
+    delete from t_article
+    where id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+</mapper>

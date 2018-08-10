@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sf.kh.dao.mapper.OverviewVersionDataMapper" >
+  <resultMap id="overviewVersionResultMap" type="com.sf.kh.model.OverviewVersionData" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="send_company_id" property="sendCompanyId" jdbcType="BIGINT" />
+    <result column="send_company_name" property="sendCompanyName" jdbcType="VARCHAR" />
+    <result column="receive_company_id" property="receiveCompanyId" jdbcType="BIGINT" />
+    <result column="receive_company_name" property="receiveCompanyName" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="cubage" property="cubage" jdbcType="DOUBLE" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="baseColumns" >
+    id, send_company_id, send_company_name, receive_company_id, receive_company_name, 
+    amount, cubage, weight, version
+  </sql>
+  <select id="selectByCompanyIdsAndTypeAndVersion" resultMap="overviewVersionResultMap">
+    select <include refid="baseColumns" />
+    from t_overview_version_data
+    <where>
+    	`version` = #{version}
+    	<if test="type==1">
+    		<if test="companyIds!=null and companyIds.size>0">
+	           	and send_company_id in
+	           	<foreach collection="companyIds" item="item" index="index" open="(" close=")" separator=",">
+	           		#{item}
+	       		</foreach>
+	        </if>
+    	</if>
+    	<if test="type==2">
+    		<if test="companyIds!=null and companyIds.size>0">
+	           	and receive_company_id in
+	           	<foreach collection="companyIds" item="item" index="index" open="(" close=")" separator=",">
+	           		#{item}
+	       		</foreach>
+	        </if>
+    	</if>
+    </where>
+  </select>
+</mapper>

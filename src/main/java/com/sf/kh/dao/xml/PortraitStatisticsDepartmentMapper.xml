@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sf.kh.dao.mapper.PortraitStatisticsDepartmentMapper" >
+  <resultMap id="portraitStatisticsDepartmentBaseResultMap" type="com.sf.kh.model.PortraitStatisticsDepartment" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="receive_company_id" property="receiveCompanyId" jdbcType="VARCHAR" />
+    <result column="goods_num" property="goodsNum" jdbcType="BIGINT" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="baseColumns" >
+    	id, type, type_name, receive_company_id, goods_num, version
+  </sql>
+  <select id="getList" resultMap="portraitStatisticsDepartmentBaseResultMap">
+    select <include refid="baseColumns" />
+    from t_kh_delivery_direction
+   	<where>
+   		<if test="type!=null">type = #{type}</if>
+   		<if test="typeName!=null">and type_name = #{typeName}</if>
+   		<if test="version!=null">and version = #{version}</if>
+   	</where>
+  </select>
+</mapper>
