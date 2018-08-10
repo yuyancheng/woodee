@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html data-ng-app="app">
+
+<head>
+    <meta charset="utf-8" />
+    <title>WebGL Demo</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="./three.min.js"></script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <div>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width:100%;height:100%;">
+            <defs>
+                <symbol viewBox="442 -1286.9 1420.1 1286.7" id="beam-1">
+                    <g>
+                        <linearGradient id="beam-1_SVGID_1_" gradientUnits="userSpaceOnUse" x1="1241.4415" y1="-247.6942"
+                                        x2="1317.816" y2="-14.577" gradientTransform="matrix(1 0 0 1 0 -85.9599)">
+                            <stop offset="0" style="stop-color:#B54EA0"></stop>
+                            <stop offset="1" style="stop-color:#EB368D"></stop>
+                        </linearGradient>
+                        <polygon fill="url(#beam-1_SVGID_1_)"
+                                 points="1091.2,-227.6 1440.5,-177.6 1481.9,-164.3 1453.6,-212.1 1156,-290.6  "></polygon>
+                        <linearGradient id="beam-1_SVGID_2_" gradientUnits="userSpaceOnUse" x1="1018.6" y1="-57.16" x2="1424.1"
+                                        y2="-57.16" gradientTransform="matrix(1 0 0 1 0 -85.9599)">
+                            <stop offset="0" style="stop-color:#B54EA0"></stop>
+                            <stop offset="1" style="stop-color:#BE4A9D"></stop>
+                        </linearGradient>
+                        <polygon fill="url(#beam-1_SVGID_2_)"
+                                 points="1018.6,-247.1 1340.8,-0.2 1424.1,-103.8 1105.7,-286  "></polygon>
+                        <linearGradient id="beam-1_SVGID_3_" gradientUnits="userSpaceOnUse" x1="1275" y1="-188.3693" x2="1847"
+                                        y2="-188.3693" gradientTransform="matrix(1 0 0 1 0 -85.9599)">
+                            <stop offset="0" style="stop-color:#B54EA0"></stop>
+                            <stop offset="1" style="stop-color:#029DE0"></stop>
+                        </linearGradient>
+                        <polygon fill="url(#beam-1_SVGID_3_)"
+                                 points="1658.2,-462.4 1275,-82.1 1340.8,-0.2 1847,-451.1 1806.3,-548.4  "></polygon>
+                        <linearGradient id="beam-1_SVGID_4_" gradientUnits="userSpaceOnUse" x1="524.8344" y1="-58.2324"
+                                        x2="1851.5854" y2="-505.677" gradientTransform="matrix(1 0 0 1 0 -85.9599)">
+                            <stop offset="0" style="stop-color:#24BDC9"></stop>
+                            <stop offset="1" style="stop-color:#029DE0"></stop>
+                        </linearGradient>
+                        <polygon fill="url(#beam-1_SVGID_4_)"
+                                 points="1862.1,-620.8 1847,-451.1 569.2,-73 555.6,-293.5  "></polygon>
+                        <linearGradient id="beam-1_SVGID_5_" gradientUnits="userSpaceOnUse" x1="502.4275" y1="-47.0064"
+                                        x2="1770.4275" y2="-1129.0062" gradientTransform="matrix(1 0 0 1 0 -85.9599)">
+                            <stop offset="0" style="stop-color:#24BDC9"></stop>
+                            <stop offset="1" style="stop-color:#22D88F"></stop>
+                        </linearGradient>
+                        <polygon fill="url(#beam-1_SVGID_5_)"
+                                 points="1387.2,-1209.1 1701.9,-1286.9 1847,-959.1 569.2,-73 442,-253.4  "></polygon>
+                    </g>
+                </symbol>
+            </defs>
+        </svg>
+    </div>
+    <script>
+
+        var camera, scene, renderer;
+        var geometry, material, mesh;
+
+        init();
+        animate();
+
+        function init() {
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+            camera.position.z = 1000;
+
+            scene = new THREE.Scene();
+
+            geometry = new THREE.BoxGeometry(200, 200, 200);
+            material = new THREE.MeshBasicMaterial({
+                color: 0xff0000,
+                wireframe: true
+            });
+
+            mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            document.body.appendChild(renderer.domElement);
+
+        }
+
+        function animate() {
+
+            requestAnimationFrame(animate);
+
+            mesh.rotation.x += 0.01;
+            mesh.rotation.y += 0.02;
+
+            renderer.render(scene, camera);
+
+        }
+    </script>
+</body>
+
+</html>
