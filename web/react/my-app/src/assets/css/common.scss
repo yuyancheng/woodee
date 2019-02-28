@@ -1,0 +1,19 @@
+
+$defaul-font-family: '微软雅黑';
+$defaul-text-color: #333;
+$defaul-font-size: 14px;
+
+.app-footer {
+    color: $defaul-color;
+    font: {
+        family: $defaul-font-family;
+        size: $defaul-font-size;
+    }
+}
+
+.nav-item {
+    font: {
+        size: 16px;
+    }
+    color:$defaul-color;
+}

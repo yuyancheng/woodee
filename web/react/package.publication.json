@@ -1,0 +1,49 @@
+{
+  "name": "boi",
+  "version": "3.0.5",
+  "description": "Frontend development toolchains for graceful workflow",
+  "scripts": {
+    "lint": "eslint boi"
+  },
+  "bin": {
+    "boi": "bin/boi.js"
+  },
+  "dependencies": {
+    "boi-compiler": "0.0.5",
+    "boi-deploy": "0.0.1",
+    "boi-mock": "0.0.1",
+    "boi-parser": "0.0.5",
+    "boi-server": "0.0.6",
+    "chalk": "^1.1.3",
+    "commander": "^2.9.0",
+    "ora": "^1.1.0",
+    "shelljs": "^0.7.0",
+    "yeoman-environment": "^1.6.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boijs/boi"
+  },
+  "keywords": [
+    "boi",
+    "web",
+    "scss",
+    "less",
+    "es2015",
+    "webpack",
+    "frontend",
+    "workflow"
+  ],
+  "engines": {
+    "node": ">=6.0"
+  },
+  "files": [
+    "bin/"
+  ],
+  "author": "zhoujunpeng <zjp0432@163.com> (https://github.com/zhoujunpeng)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boijs/boi/issues"
+  },
+  "homepage": "https://boijs.github.io/"
+}

@@ -1,0 +1,40 @@
+.app {
+  /* text-align: center; */
+}
+
+
+.app-header {
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(0, 38, 59);
+  height: 60px;
+  padding: 0;
+  color: white;
+}
+.app-logo {
+  flex-basis: 10%;
+  animation: App-logo-spin infinite 20s linear;
+  height: 40px;
+}
+
+.app-title {
+  font-size: 1.5em;
+}
+
+.app-intro {
+  font-size: large;
+}
+
+
+@keyframes app-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+
+.app-footer {
+  color: #333;
+  font-family: '微软雅黑';
+  font-size: 14px;
+}

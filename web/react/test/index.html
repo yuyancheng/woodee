@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	welcome to ddt!
+
+	<script>
+        "use strict";
+
+        const color = "red";
+
+        var p = new Promise(function(resolve, reject){
+            //resolve('a');
+            reject('b');
+        }).then(function(s){
+            //console.log(s);
+            return 'c';
+        }).catch(function(s){
+            //console.log(s);
+            return 'e';
+        });
+
+        p.then(function(s){
+            console.log('1: ' + s);
+        }, function(s){
+            console.log('2: ' + s);
+        }).catch(function(s){
+            console.log('3: ' + s);
+        });
+
+        console.log(p);
+
+
+        /*let i = 0;
+
+        for(let i=5;i<10; i++) {
+            console.log(i);
+        }*/
+
+        //let m = 1;
+
+        /*let (i = 1, j = 4) {
+            alert(i * j);
+        }*/
+
+        //var val = let (m = 10, n = 3) m * n;
+
+        ///console.log(val);
+
+        function show (val1, val2, ...vals) {
+            console.log(val1);
+            console.log(vals[1]);
+        }
+
+        // show.call(123,12,333,44,222,55);
+        //show.call(...[123,12,333,44,222,55]);
+        //console.log(i);
+	</script>
+</html>
