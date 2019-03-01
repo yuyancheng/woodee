@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 // import logo from './logo.svg';
 import logo from './assets/img/logo.png';
 import './App.css';
 
+import './assets/css/common.css';
 import TopNav from './components/TopNav';
 import LoginStatus from './components/LoginStatus';
 import SideNav from './components/SideNav';
-import './assets/css/common.css';
+import Main from './components/Main';
+
+
 
 class App extends Component {
     render () {
@@ -30,7 +34,7 @@ class App extends Component {
                     </aside>
                     {/* 主体内容 */}
                     <div className="app-main">
-                        <div></div>
+                        <Main />
                     </div>
                 </div>
 
@@ -38,6 +42,18 @@ class App extends Component {
             </div>
         );
     }
+    getNavbar() {
+        return TopNav;
+    }
+    getChildContext() {
+        return {
+            getNavbar: this.getNavbar
+        };
+    }
 }
+
+App.childContextTypes = {
+    getNavbar: PropTypes.node
+};
 
 export default App;

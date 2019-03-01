@@ -27,40 +27,40 @@ class Navitem extends Component {
     }
     // 挂载阶段
     componentWillMount() {
-        console.log(`componentWillMount:`);
-        console.log(this.props);
-        console.log(this.state);
+        // console.log(`componentWillMount:`);
+        // console.log(this.props);
+        // console.log(this.state);
     }
     componentDidMount() {
-        console.log(`componentDidMount:`);
-        console.log(this.props);
-        console.log(this.state);
+        // console.log(`componentDidMount:`);
+        // console.log(this.props);
+        // console.log(this.state);
     }
     // 更新阶段
     componentWillReceiveProps(nextProps) {
-        console.log(`componentWillReceiveProps "nextProps":`);
-        console.log(nextProps);
+        // console.log(`componentWillReceiveProps "nextProps":`);
+        // console.log(nextProps);
     }
     shouldComponentUpdate(nextProps, nextState) {
-        console.log(`shouldComponentUpdate "nextProps":`);
-        console.log(nextProps);
-        console.log(nextState);
+        // console.log(`shouldComponentUpdate "nextProps":`);
+        // console.log(nextProps);
+        // console.log(nextState);
     }
     componentWillUpdate(nextProps, nextState) {
-        console.log(`componentWillUpdate "nextProps:"`);
-        console.log(nextProps);
-        console.log(nextState);
+        // console.log(`componentWillUpdate "nextProps:"`);
+        // console.log(nextProps);
+        // console.log(nextState);
     }
     // render()
     componentDidUpate(prevProps, prevState) {
-        console.log(`componentDidUpate "prevProps":`);
-        console.log(prevProps);
-        console.log(prevState);
+        // console.log(`componentDidUpate "prevProps":`);
+        // console.log(prevProps);
+        // console.log(prevState);
     }
     // 卸载阶段
     componentWillUnmount(param) {
-        console.log(`componentWillUnmount "param":`);
-        console.log(param);
+        // console.log(`componentWillUnmount "param":`);
+        // console.log(param);
     }
 };
 
