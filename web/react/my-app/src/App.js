@@ -50,6 +50,9 @@ class App extends Component {
             getNavbar: this.getNavbar
         };
     }
+    componentWillMount() {
+        window.localStorage.setItem('react_key', 13213213230);
+    }
 }
 
 App.childContextTypes = {

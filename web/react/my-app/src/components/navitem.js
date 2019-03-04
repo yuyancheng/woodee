@@ -1,4 +1,11 @@
 import React,{Component} from 'react';
+import hightComponent from './HighComponent';
+
+function InputCom(props) {
+    return <input defaultValue={props.localData} />
+}
+
+const HighInputCom = hightComponent('react_key')(InputCom);
 
 class Navitem extends Component {
     constructor(props) {
@@ -7,13 +14,16 @@ class Navitem extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
     render() {
-        const {labelName, customClass} = this.props;
+        // const {labelName, customClass} = this.props;
         return (
+            // <li>
+            //     <a className={customClass} 
+            //     // onClick={(event)=>{this.handleClick(event);}}
+            //     onDoubleClick={this.handleClick}
+            //     >{labelName}</a>
+            // </li>
             <li>
-                <a className={customClass} 
-                // onClick={(event)=>{this.handleClick(event);}}
-                onDoubleClick={this.handleClick}
-                >{labelName}</a>
+                <HighInputCom />
             </li>
         );
     }
