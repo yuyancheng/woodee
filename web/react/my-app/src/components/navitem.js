@@ -1,8 +1,13 @@
 import React,{Component} from 'react';
 import hightComponent from './HighComponent';
+import {BrowserRouter as Router, Link} from 'react-router-dom';
 
 function InputCom(props) {
-    return <input defaultValue={props.localData} />
+    return(
+        <Router>
+            <Link to="/game">{props.labelName}</Link>
+        </Router>
+    )
 }
 
 const HighInputCom = hightComponent('react_key')(InputCom);
@@ -14,7 +19,7 @@ class Navitem extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
     render() {
-        // const {labelName, customClass} = this.props;
+        const {labelName, customClass} = this.props;
         return (
             // <li>
             //     <a className={customClass} 
@@ -23,7 +28,7 @@ class Navitem extends Component {
             //     >{labelName}</a>
             // </li>
             <li>
-                <HighInputCom />
+                <HighInputCom labelName={labelName}/>
             </li>
         );
     }

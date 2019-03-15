@@ -7,7 +7,7 @@ const HighComponent = (key) => (TargetCompoment) => {
         }
         render() {
             return (
-                <TargetCompoment localData={this.localData}/>
+                <TargetCompoment labelName={this.props.labelName}/>
             );
         }
     };

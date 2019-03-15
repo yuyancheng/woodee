@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
 import '../assets/css/main.css';
 import {print} from './common/LifeCircleLine';
+import Forum from './forum/Index';
+import Game from './gm/Index';
 
 function FunCom2(props) {
     return <input ref={props.iptRef} defaultValue="123" />
@@ -35,16 +38,24 @@ class Main extends Component {
             customClass: '',
         }];
         return (
-            <form className="login-status">
-                <input type="text" name="userName" value={this.state.data} onChange={this.handleTextChange} />
-                <input type="password" name="password" onChange={this.handlePasswordChange} />
-                <input type="checkbox" name="autoCheckIn" defaultChecked={true} onChange={this.handleCheckChange} />
-                <input type="checkbox" name="autoCheckIn" defaultChecked={false} onChange={this.handleCheckChange} />
-                <input type="radio" name="remember" defaultChecked={false} />
-                <FunCom iptRef={funCom => {this.funCom = funCom;}}/>
-                <FunCom2 iptRef={com => {this.funCom2 = com;}}/>
-                <button type="button" value="CLICK" onClick={this.handleClick}>CLICK ME</button>
-            </form>
+            <div>
+                <Router>
+                    <Switch>
+                        <Route path="/forum" component={Forum}></Route>
+                        <Route path="/game"component={Game}></Route>
+                    </Switch>
+                </Router>
+                <form className="login-status">
+                    <input type="text" name="userName" value={this.state.data} onChange={this.handleTextChange} />
+                    <input type="password" name="password" onChange={this.handlePasswordChange} />
+                    <input type="checkbox" name="autoCheckIn" defaultChecked={true} onChange={this.handleCheckChange} />
+                    <input type="checkbox" name="autoCheckIn" defaultChecked={false} onChange={this.handleCheckChange} />
+                    <input type="radio" name="remember" defaultChecked={false} />
+                    <FunCom iptRef={funCom => {this.funCom = funCom;}}/>
+                    <FunCom2 iptRef={com => {this.funCom2 = com;}}/>
+                    <button type="button" value="CLICK" onClick={this.handleClick}>CLICK ME</button>
+                </form>
+            </div>
         );
     }
     updateTime() {

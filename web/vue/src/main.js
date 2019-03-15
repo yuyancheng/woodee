@@ -6,6 +6,12 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+// Vue.translate('expand', {
+//   enter () {
+//     console.log('enter')
+//   }
+// })
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
