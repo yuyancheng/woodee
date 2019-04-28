@@ -42,7 +42,7 @@ class Main extends Component {
                 <Router>
                     <Switch>
                         <Route path="/forum" component={Forum}></Route>
-                        <Route path="/game"component={Game}></Route>
+                        <Route path="/game" component={Game}></Route>
                     </Switch>
                 </Router>
                 <form className="login-status">

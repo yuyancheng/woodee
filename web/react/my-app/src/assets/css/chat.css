@@ -306,6 +306,14 @@ ul {
     overflow: hidden;
 }
 
+.full-screen {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: auto;
+}
+
 .win-lt {
     width: 60px;
     height: 100%;
@@ -603,9 +611,11 @@ ul {
 .msg-panel{
     position: absolute;
     top: 0;
+    right: 0;
     left: 0;
     bottom: 50px;
     overflow-y: auto;
+    padding: 0 10px;
 }
 
 .main-panel-rt {
@@ -750,6 +760,8 @@ ul {
 /**Start 输入框**/
 
 .msg-banner{
+    display: flex;
+    justify-content: space-between;
     position: absolute;
     right: 0;
     bottom: 0;
@@ -759,12 +771,16 @@ ul {
     background-color: #EFEFEF;
 }
 .msg-input{
+    flex-basis: 90%;
     min-height: 30px;
     line-height: 24px;
     border: 1px solid #AAA;
     border-radius: 4px;
     background-color: #FFF;
     font-size: 12px;
+}
+.btn-send {
+    flex-basis: 50px;
 }
 
 /***End 输入框***/

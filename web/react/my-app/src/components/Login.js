@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Item from './navitem';
+import Item from './NavItem';
 
 import '../assets/css/side-nav.css';
 
