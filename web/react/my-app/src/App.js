@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 // import logo from './logo.svg';
 import logo from './assets/img/logo.png';
@@ -9,12 +10,17 @@ import TopNav from './components/TopNav';
 import LoginStatus from './components/LoginStatus';
 import SideNav from './components/SideNav';
 import Main from './components/Main';
+import IM from './components/chat/MainFrame';
 
 
 
 class App extends Component {
     render () {
+        const path = window.location.href;
+        console.log(path)
+
         return (
+            path.indexOf('IM') === -1 ?
             <div className="app">
                 <header className="app-header">
                     {/* logo */}
@@ -36,10 +42,16 @@ class App extends Component {
                     <div className="app-main">
                         <Main />
                     </div>
+                    {/* IM内容 */}
+                    <Router>
+                        <Link to="/IM" component="IM">即时消息</Link>
+                    </Router>
                 </div>
 
                 <footer className="app-footer"></footer>
             </div>
+            :
+            <IM></IM>
         );
     }
     getNavbar() {
@@ -49,6 +61,9 @@ class App extends Component {
         return {
             getNavbar: this.getNavbar
         };
+    }
+    componentWillMount() {
+        window.localStorage.setItem('react_key', 13213213230);
     }
 }
 

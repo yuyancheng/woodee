@@ -1,4 +1,16 @@
 import React,{Component} from 'react';
+import hightComponent from './HighComponent';
+import {BrowserRouter as Router, Link} from 'react-router-dom';
+
+function InputCom(props) {
+    return(
+        <Router>
+            <Link to="/game">{props.labelName}</Link>
+        </Router>
+    )
+}
+
+const HighInputCom = hightComponent('react_key')(InputCom);
 
 class Navitem extends Component {
     constructor(props) {
@@ -9,11 +21,14 @@ class Navitem extends Component {
     render() {
         const {labelName, customClass} = this.props;
         return (
+            // <li>
+            //     <a className={customClass} 
+            //     // onClick={(event)=>{this.handleClick(event);}}
+            //     onDoubleClick={this.handleClick}
+            //     >{labelName}</a>
+            // </li>
             <li>
-                <a className={customClass} 
-                // onClick={(event)=>{this.handleClick(event);}}
-                onDoubleClick={this.handleClick}
-                >{labelName}</a>
+                <HighInputCom labelName={labelName}/>
             </li>
         );
     }
