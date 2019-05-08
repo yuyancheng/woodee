@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <style>
+        body,
+        html {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .flex-container-1,
+        .flex-container-2 {
+            display: flex;
+            /* flex-wrap: wrap; */
+            justify-content: space-evenly;
+            align-content: space-evenly;
+        }
+
+        /* 以下为辅助样式 */
+
+        .flex-container-1,
+        .flex-container-2 {
+            width: 270px;
+            height: 200px;
+            background-color: #F0f0f0;
+        }
+
+        .flex-container-1 .flex-item {
+            padding: 20px;
+            height: 20px;
+            background-color: #B1FF84;
+            /* text-align: center; */
+        }
+
+        .flex-container-2 .flex-item {
+            padding: 20px;
+            height: 20px;
+            width: 90px;
+            flex: 40%;
+            background-color: #B1FF84;
+            /* text-align: center; */
+        }
+
+        .flex-container-1 .flex-item:nth-child(1) {
+            background-color: #F5DE25;
+            flex-grow: 0;
+        }
+
+        .flex-container-1 .flex-item:nth-child(2) {
+            background-color: #90D9F7;
+            flex-grow: 1;
+        }
+
+        .flex-container-1 .flex-item:nth-child(3) {
+            background-color: rgb(14, 167, 9);
+            flex-grow: 2;
+        }
+
+        .flex-container-2 .flex-item:nth-child(1) {
+            background-color: #F5DE25;
+            flex-shrink: 0;
+        }
+
+        .flex-container-2 .flex-item:nth-child(2) {
+            background-color: #90D9F7;
+            flex-shrink: 1;
+        }
+
+        .flex-container-2 .flex-item:nth-child(3) {
+            background-color: rgb(14, 167, 9);
+            flex-shrink: 2;
+            flex: 60%;
+            flex-basis: 10%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex-container-1">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+    </div>
+    <div class="flex-container-2">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+    </div>
+</body>
+
+<script>
+    function test(a, b) {
+        //debugger 想不通就去单步调试
+        alert(b);
+        return {
+            test: function (c) {
+                return test(c, a);
+            }
+        }
+    }
+
+    // var a = test(100);
+    // a.test(101);
+    // a.test(102);
+
+    // var b = test(200).test(201).test(202);
+
+    // var c = test(300).test(301);
+    // c.test(302);
+</script>
+<script>
+    var string = 'test';
+    document.write('<scr' + 'ipt> console.log(string);arrfam([1]);console.log(num);</' + 'script>')
+</script>
+<script>
+    var num = 456;
+
+    function arrfam(arr) {
+        if (arr instanceof Array) {
+            console.log('is Array');
+        } else {
+            console.log('is string');
+        }
+    }
+    arrfam(string);
+    arrfam([string]);
+</script>
+
+</html>
