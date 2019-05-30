@@ -22,4 +22,49 @@ function countMoney(total) {
   }
   return result;
 }
-console.log(countMoney(10));
+// console.log(countMoney(10));
+
+const wordCounter = (str) => {
+  const wordSets = {};
+  const wordArr = [];
+  const wordList = str.split(/[^a-zA-Z]+/);
+
+  wordList.map((v) => {
+    if (wordArr.indexOf(v) === -1 && /[a-zA-Z]+/.test(v)) {
+      wordArr.push(v);
+      wordSets[v] = 1;
+    } else if (/\S/.test(v)){
+      wordSets[v] ++;
+    }
+  });
+  return wordSets;
+};
+
+const wordStr = 'In my ./ dual profession as an educator and health care provider, I have worked with numerous children infected with the virus that causes AIDS. The relationships that I have had with these special kids have been gifts in my life. They have taught me so many things, but I have especially learned that great courage can be found in the smallest of packages. Let me tell you about Tyler.';
+// console.log(wordCounter(wordStr))
+
+const obj = {
+  get fun() {
+    console.log(222);
+    return () => {
+      console.log(111);
+      return 333;
+    };
+  },
+  name: 'js'
+};
+
+//const obj2 = Object.assign({}, obj);
+//console.log(obj2.fun());
+
+
+var desp1 = Object.getOwnPropertyDescriptor(obj);
+
+console.log(desp1, 'name');
+
+var fl = true;
+
+console.log(Object.getPrototypeOf('false'))
+
+// console.log(Object.fromEntries(new URLSearchParams('foo=bar&baz=qux')))
+
