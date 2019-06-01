@@ -8,7 +8,7 @@ class ContactList extends Component {
     constructor (props) {
         super();
         this.state = props;
-        this.showInfo = this.showInfo.bind(this);
+        //this.showInfo = this.showInfo.bind(this);
     }
 
     render() {
