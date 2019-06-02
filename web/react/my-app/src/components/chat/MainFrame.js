@@ -12,13 +12,10 @@ import MessageBanner from './MessageBanner';
 import msgs from '../../assets/js/data/msgs';
 import ContactSearch from './ContactSearch';
 
-let that;
-
 class MainFrame extends Component {
     constructor(props) {
         super();
         this.state = props;
-        that = this;
     }
     render() {
         const msgData = msgs['100'];
@@ -53,7 +50,7 @@ class MainFrame extends Component {
             msgData: msgs['100']
         });
     }
-    readInfo(id) {
+    readInfo = (id) => {
         const msgData = msgs[id] || [];
         const p = new Promise((resolve, reject) => {
             setTimeout(() => {
@@ -61,7 +58,7 @@ class MainFrame extends Component {
             }, 500);
         });
         p.then((v) => {
-            that.setState({
+            this.setState({
                 msgData
             });
         });
