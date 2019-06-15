@@ -11,33 +11,35 @@ var mysqlConnection = require("mysql").createConnection({
 
 // mysqlConnection.connect();
 
-// 链接到数据库
+// 连接到数据库
+mysqlConnection.connect();
+
 function connect(fun) {
-  mysqlConnection.connect();
 
   fun();
 
-  mysqlConnection.end();
+  // 断开数据库连接
+  // mysqlConnection.end();
 }
 
 connection.findOne = (sets, factor, fun) => {
   var gotOne = false;
   connect(function() {
-    mysqlConnection.query(`SELECT * from ${sets}`, function (error, results, fields) {
-        if (error) throw error;
-        console.log('The solution is: ', results[0]);
-      });
+    const qStr = `SELECT * from ${sets} ${factor}`;
+    mysqlConnection.query(qStr, function (error, results, fields) {
+      if (error) throw error;
+      console.log('The solution is: ', results[0]);
+      fun(results[0]);
+    });
   });
 };
 
 connection.findMany = (sets, factor, fun) => {
   connect(function(db) {
-    var cursor = db.collection(sets).find(factor);
-    cursor.toArray(function(err, doc) {
-      if (err === null) {
-        fun(doc);
-        db.close();
-      }
+    mysqlConnection.query(`SELECT * from ${sets}`, function (error, results, fields) {
+      if (error) throw error;
+      console.log('The solution is: ', results[0]);
+      fun(results[0]);
     });
   });
 };
@@ -48,13 +50,19 @@ connection.insertOne = (sets, dt, factor, fun) => {
     fun(null);
   }
 
-  connect(function(db) {
-    db.collection(sets).insertOne(dt, null, function(err, result) {
-      assert.equal(err, null);
-      if (fun) {
-        fun(result);
+  connect(function() {
+    mysqlConnection.query(`INSERT INTO ${sets}(${factor}) VALUES(0,?,?,?)`, dt, function (error, results, fields) {
+      if (error) throw error;
+      let result = null;
+      if (results.affectedRows) {
+        result = {
+          ok: true,
+          data: {
+            id: results.insertId
+          }
+        };
       }
-      db.close();
+      fun(result);
     });
   });
 };
@@ -67,10 +75,7 @@ connection.insertOrUpdate = (sets, dt, factor, fun) => {
 
   connect(function(db) {
     var collection = db.collection(sets);
-    collection.updateOne(factor, { $set: dt }, { upsert: true }, function(
-      err,
-      result
-    ) {
+    collection.updateOne(factor, { $set: dt }, { upsert: true }, function(err, result) {
       assert.equal(err, null);
       if (fun) {
         fun(result);
