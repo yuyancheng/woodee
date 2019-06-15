@@ -24,17 +24,38 @@ function countMoney(total) {
 }
 // console.log(countMoney(10));
 
+const getIndex =  (arr, v) => {
+  if (typeof arr !== 'object' || arr.constructor !== Array) {
+    return new Error('First param must be a Array!');
+  }
+  if (v.constructor === Function) {
+    return v.call(null);
+  } else {
+    return arr.indexOf(v);
+  }
+};
+
 const wordCounter = (str) => {
   const wordSets = {};
   const wordArr = [];
   const wordList = str.split(/[^a-zA-Z]+/);
 
   wordList.map((v) => {
-    if (wordArr.indexOf(v) === -1 && /[a-zA-Z]+/.test(v)) {
-      wordArr.push(v);
-      wordSets[v] = 1;
+    if (getIndex(wordArr, () => {
+      let reg = null;
+      for (i=0; i<wordArr.length; i++) {
+        const regStr = `^${wordArr[i]}$`;
+        reg = new RegExp(regStr, 'i');
+        if (reg.test(v)) {
+          return i;
+        }
+      }
+      return -1;
+    }) === -1 && /[a-zA-Z]+/.test(v)) {
+      wordArr.push(v.toLowerCase());
+      wordSets[v.toLowerCase()] = 1;
     } else if (/\S/.test(v)){
-      wordSets[v] ++;
+      wordSets[v.toLowerCase()] ++;
     }
   });
   return wordSets;
@@ -60,11 +81,39 @@ const obj = {
 
 var desp1 = Object.getOwnPropertyDescriptor(obj);
 
-console.log(desp1, 'name');
+// console.log(desp1, 'name');
 
 var fl = true;
 
-console.log(Object.getPrototypeOf('false'))
+// console.log(Object.getPrototypeOf('false'))
 
 // console.log(Object.fromEntries(new URLSearchParams('foo=bar&baz=qux')))
 
+
+const http = require('http');
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = http.createServer((req, res) => {
+  console.log(req.aborted);
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello, World!\n');
+});
+
+// server.listen(port, hostname, () => {
+//   console.log(`Server running at http://${hostname}:${port}/`);
+// });
+// console.log(http.ClientRequest);
+// console.log(http.METHODS);
+// console.log(http.STATUS_CODES);
+
+var s = 'aaa_aa_a';
+var r1 = /a+/g;
+var r2 = /a+/y;
+
+r1.exec(s) // ["aaa"]
+r2.exec(s) // ["aaa"]
+
+console.log(r1.exec(s)) // ["aa"]
+console.log(r2.exec(s)) // null

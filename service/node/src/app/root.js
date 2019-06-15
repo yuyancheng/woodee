@@ -12,5 +12,8 @@
         server.run('srv64', api_loader);
     }
 
+    const api = db_loader.setDB('mysql');
+    db_loader = {...api};
+
 }(exports, require, module));
 
