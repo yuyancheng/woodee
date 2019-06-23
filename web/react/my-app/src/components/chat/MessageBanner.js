@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import IO from 'socket.io';
 
-import Io from 'socket.io';
-
 class MessageBanner extends Component {
 
     render() {
-        IO.on('chat', (msg) => {
-            console.log(msg);
-        });
+        // IO.on('chat', (msg) => {
+        //     console.log(msg);
+        // });
         return (
             <div className="msg-banner">
                 <div className="msg-input" contenteditable="true"></div>
