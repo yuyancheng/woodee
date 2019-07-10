@@ -2,15 +2,15 @@ export default {
     100: [{
         id: 1,
         date: '2019-04-26 12:23:05',
-        text: 'Hi',
-        images: [],
+        text: 'Hi#img#',
+        images: [require('../../img/chat/c5.jpg')],
         senderIcon: require('../../img/chat/c3.jpg'),
         isMe: false
     }, {
         id: 2,
         date: '2019-04-26 12:23:05',
-        text: '房子由于个人原因租客需要哟，图片真实#img#，另一张#img#',
-        images: [],
+        text: '房子由于个人原因租客需要哟，主要的说N遍，个人房源！个人房源！个人房源！个人房源！个人房源！个人房源！个人房源！\n<script>alert(123);console.log(2332)</script>图片真实#img##img#，另一张#img#',
+        images: [require('../../img/chat/c3.jpg'), require('../../img/chat/nb.jpg'), require('../../img/chat/c4.jpg')],
         senderIcon: require('../../img/chat/c4.jpg'),
         isMe: true
     }, {
@@ -18,15 +18,15 @@ export default {
         senderName: '王自强',
         date: '2019-04-26 12:23:05',
         text: 'Hi',
-        images: [],
+        images: [require('../../img/chat/c1.jpg')],
         senderIcon: require('../../img/chat/c1.jpg'),
         isMe: false
     }, {
         id: 4,
         date: '2019-04-26 12:23:05',
         text: '房子由于个人原因租客需要把房子转租的哟，图片真实#img#，另一张#img#',
-        images: [],
-        senderIcon: require('../../img/chat/c2.jpg'),
+        images: [require('../../img/chat/c3.jpg')],
+        senderIcon: require('../../img/chat/c4.jpg'),
         isMe: true
     }, {
         id: 5,
@@ -41,7 +41,7 @@ export default {
         date: '2019-04-26 12:23:05',
         text: '房子由于个人原因租客需要把房子转租的哟，图片真实#img#，另一张#img#',
         images: [],
-        senderIcon: require('../../img/chat/c2.jpg'),
+        senderIcon: require('../../img/chat/c4.jpg'),
         isMe: true
     }],
     101: [{
@@ -56,7 +56,7 @@ export default {
         date: '2019-04-26 12:23:05',
         text: '图片真实#img#，另一张#img#',
         images: [],
-        senderIcon: require('../../img/chat/c2.jpg'),
+        senderIcon: require('../../img/chat/c4.jpg'),
         isMe: true
     }, {
         id: 23,
@@ -71,14 +71,14 @@ export default {
         date: '2019-04-26 12:23:05',
         text: '房子由于个人原因租客需要把房子转租的哟，图片真实#img#，另一张#img#',
         images: [],
-        senderIcon: require('../../img/chat/c2.jpg'),
+        senderIcon: require('../../img/chat/c4.jpg'),
         isMe: true
     }, {
         id: 26,
         date: '2019-04-26 12:23:05',
         text: '房子由于个人原因租客需要把房子转租的哟，图片真实#img#，另一张#img#',
         images: [],
-        senderIcon: require('../../img/chat/c2.jpg'),
+        senderIcon: require('../../img/chat/c4.jpg'),
         isMe: true
     }],
     102: [{
@@ -93,7 +93,7 @@ export default {
         date: '2019-04-26 12:23:05',
         text: '房子由于个人原因租客需要把房子转租的哟，图片真实#img#，另一张#img#',
         images: [],
-        senderIcon: require('../../img/chat/c2.jpg'),
+        senderIcon: require('../../img/chat/c4.jpg'),
         isMe: true
     }, {
         id: 33,
@@ -108,7 +108,7 @@ export default {
         date: '2019-04-26 12:23:05',
         text: '房子由于个人原因租客需要把房子转租的哟，图片真实#img#，另一张#img#',
         images: [],
-        senderIcon: require('../../img/chat/c2.jpg'),
+        senderIcon: require('../../img/chat/c4.jpg'),
         isMe: true
     }]
 };

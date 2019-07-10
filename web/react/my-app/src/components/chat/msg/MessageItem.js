@@ -12,8 +12,15 @@ class MessageItem extends Component {
         const senderName = dt.senderName;
         const senderIcon = dt.senderIcon;
         const images = dt.images;
-        const msgStr = dt.text;
-        let msgArr = msgStr.split('#img#');
+        let msgStr = dt.text;
+        let imgTagStr = '';
+        // let msgArr = msgStr.split('#img#');
+
+        images.map((img, i) => {
+            imgTagStr = `<img src='${img}' />`;
+            msgStr = msgStr.replace('#img#', imgTagStr);
+        });
+
         return (
             <div>
                 <div className="msg-item-time">{date}</div>
@@ -28,12 +35,7 @@ class MessageItem extends Component {
                             }
                             <div className="msg-item-content">
                                 <i className="fa fa-comment"></i>
-                                <div>
-                                {msgArr[0]}
-                                {
-                                    images.length ? <img src={images[0]} /> : ''
-                                }
-                                </div>
+                                <div className="msg-item-wrapper" dangerouslySetInnerHTML={{__html:msgStr}}>{/* {msgStr} */}</div>
                             </div>
                         </div>
                     </div>
