@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
-
 import io from 'socket.io';
-
 const Socket = io.connect('http://localhost/');
 
 class MessageBanner extends Component {
 
     render() {
-        
-        
+        // IO.on('chat', (msg) => {
+        //     console.log(msg);
+        // });
         return (
             <div className="msg-banner">
                 <div className="msg-input" contenteditable="true"></div>
@@ -18,7 +17,6 @@ class MessageBanner extends Component {
             </div>
         );
     }
-
     send() {
         Socket.on('chat', (msg) => {
             console.log(msg);

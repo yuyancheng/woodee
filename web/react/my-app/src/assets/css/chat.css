@@ -795,5 +795,31 @@ ul {
 /***End 输入框***/
 
 
+/**Start 菜单**/
+
+.menu{
+    border-radius: 4px;
+    box-shadow: 0 0 6px 2px rgba(0, 0, 0, .3);
+    background-color: #fff;
+    overflow: hidden;
+}
+.menu-pop{
+    position: absolute;
+    z-index: 100;
+    top: 65px;
+    left: 5px;
+}
+.menu-item{
+    line-height: 30px;
+    font-size: 14px;
+    padding: 0 10px;
+    color: #333;
+    cursor: pointer;
+}
+.menu-item:hover{
+    background-color: #7fccf5;
+}
+
+/***End 菜单***/
 
 /***************End IM界面***************/

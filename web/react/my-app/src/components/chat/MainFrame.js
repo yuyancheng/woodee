@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import ContactList from './ContactsList';
 import FrameOpr from './FrameOpr';
 import MessagePanel from './msg/MessagePanel';
+import UserInfo from './menu/UserInfo';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
 import '../../libs/bootstrap/bootstrap.css';
 import '../../libs/animate.css';
@@ -11,6 +13,9 @@ import '../../assets/css/chat.css';
 import MessageBanner from './msg/MessageBanner';
 import msgs from '../../assets/js/data/msgs';
 import ContactSearch from './ContactSearch';
+
+import Register from '../sys/Register';
+import Setting from '../sys/Setting';
 
 class MainFrame extends Component {
     constructor(props) {
@@ -22,9 +27,10 @@ class MainFrame extends Component {
         return (
             <div id="msg_window" className="msg-window full-screen none">
                 <div className="win-lt move-point">
-                    <div className="user-pic">
-                    <img src={require('../../assets/img/chat/c4.jpg')} />
-                </div>
+                    <div className="user-pic" onClick={this.showMenu.bind(this, 1234)}>
+                        <img src={require('../../assets/img/chat/c4.jpg')} />
+                    </div>
+                    <UserInfo></UserInfo>
                 </div>
                 <div className="win-md">
                     <div className="contacts-find move-point">
@@ -41,7 +47,14 @@ class MainFrame extends Component {
                             <MessageBanner></MessageBanner>
                         </div>
                     </div>
-                </div>    
+                </div>
+                
+                {/* <Router>
+                    <Switch>
+                        <Route path="/chat/settings" component={Setting}></Route>
+                        <Route path="/register" component={Register}></Route>
+                    </Switch>
+                </Router>  */}
             </div>
         );
     }
@@ -64,6 +77,9 @@ class MainFrame extends Component {
         });
         
     }
+    showMenu = (v) => {
+        console.log(v);
+    };
 };
 
 export default MainFrame;
