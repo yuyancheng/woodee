@@ -725,6 +725,15 @@ ul {
     margin-left: 40px;
 }
 
+.msg-item-wrapper {
+    /* display: inline-flex; */
+}
+
+.msg-item-wrapper *{
+    justify-items: start;
+    vertical-align: top;
+}
+
 .contacts-find > div {
     position: relative;
     padding: 10px 5px 0;

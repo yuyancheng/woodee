@@ -10,7 +10,7 @@ import '../../libs/animate.css';
 import '../../libs/font-awesome/css/font-awesome.min.css';
 import '../../libs/simple-line-icons/css/simple-line-icons.css';
 import '../../assets/css/chat.css';
-import MessageBanner from './MessageBanner';
+import MessageBanner from './msg/MessageBanner';
 import msgs from '../../assets/js/data/msgs';
 import ContactSearch from './ContactSearch';
 
