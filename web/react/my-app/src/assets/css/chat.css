@@ -748,14 +748,15 @@ ul {
     padding-right: 20px;
     padding-left: 5px;
     background: none;
-    border: 1px solid #D2D2D2;
+    border: 1px solid transparent;
     border-radius: 2px;
 }
 
 .contacts-find input:focus {
-    border: 1px solid #b2b2b2;
+    /* border: 1px solid #b2b2b2; */
     background: #f9f9f9;
     z-index: 0;
+    outline: #3C92FF dotted 2px;
 }
 
 .contacts-find i {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import io from 'socket.io';
-const Socket = io.connect('http://localhost/');
+// const Socket = io.connect('http://localhost/');
 
 class MessageBanner extends Component {
 
@@ -18,12 +18,12 @@ class MessageBanner extends Component {
         );
     }
     send() {
-        Socket.on('chat', (msg) => {
-            console.log(msg);
-        });
-        Socket.emit('chat', {
-            'content': 'Hi',
-        });
+        // Socket.on('chat', (msg) => {
+        //     console.log(msg);
+        // });
+        // Socket.emit('chat', {
+        //     'content': 'Hi',
+        // });
     }
 }
 
