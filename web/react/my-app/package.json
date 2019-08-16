@@ -8,11 +8,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "socket.io": "^2.2.0",
-<<<<<<< HEAD
-    "uws": "^1.148.1"
-=======
     "uws": "^10.148.1"
->>>>>>> 156eb5c7a85a58c920f4e7451b092a013035a02e
   },
   "scripts": {
     "start": "react-scripts start",
