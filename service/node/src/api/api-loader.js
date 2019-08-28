@@ -1,4 +1,4 @@
-(function (exports, require, module, __filename, __dirname) {
+
     'use strict';
 
     var modules = require('./config'),
@@ -70,5 +70,3 @@
     };
 
     module.exports = apiLoader;
-
-})(exports, require, module);

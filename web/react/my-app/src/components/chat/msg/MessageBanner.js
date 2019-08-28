@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import io from 'socket.io';
-const Socket = io.connect('http://localhost/');
+import IO from 'socket.io-client';
+// console.log(IO);
+const Socket = IO('http://localhost:3030/');
 
 class MessageBanner extends Component {
 
     render() {
-        // IO.on('chat', (msg) => {
+        // Socket.on('chat', (msg) => {
+        //     console.log('/////////////////// 1');
         //     console.log(msg);
         // });
         return (
@@ -18,9 +20,10 @@ class MessageBanner extends Component {
         );
     }
     send() {
-        Socket.on('chat', (msg) => {
-            console.log(msg);
-        });
+        // Socket.on('chat', (msg) => {
+        //     console.log('/////////////////// 2');
+        //     console.log(msg);
+        // });
         Socket.emit('chat', {
             'content': 'Hi',
         });
