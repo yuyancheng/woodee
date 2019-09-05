@@ -1,4 +1,4 @@
-package alg.sort;
+package basic.alg.sort;
 
 public class SortTest {
     /**

@@ -1,4 +1,4 @@
-package alg.sort;// package basic.alg.sort;
+package basic.alg.sort;
 
 public class SelectionSort implements ISortNumber {
     public SelectionSort() {}
