@@ -1,10 +1,5 @@
 package basic.langs.oop;
 
-import java.io.IOError;
-import java.io.IOException;
-
-import basic.langs.oop.SubClass;
-
 public class ClassInitialization {
     protected static final String version = "1.0.0";
     private String vStr = "测试父类普通方法。";

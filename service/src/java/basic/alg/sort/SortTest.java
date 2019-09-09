@@ -21,7 +21,7 @@ public class SortTest {
         ISortNumber test = new SelectionSort();
         System.out.println("选择排序后的结果：");
         printIntArray(test.sortASC(iNums));
-        
+
         System.out.println("排序前的数组：");
         printIntArray(iNums);
         test = new BubbleSort();
