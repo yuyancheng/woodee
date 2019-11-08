@@ -38,7 +38,8 @@
     "strip-ansi": "^4.0.0",
     "svg-term-cli": "^2.1.1",
     "tempy": "^0.2.1",
-    "wait-for-localhost": "2.0.1"
+    "wait-for-localhost": "2.0.1",
+    "webpack-cli": "^3.3.10"
   },
   "husky": {
     "hooks": {
@@ -55,6 +56,5 @@
     ]
   },
   "__npminstall_done": false,
-  "dependencies": {
-  }
+  "dependencies": {}
 }
