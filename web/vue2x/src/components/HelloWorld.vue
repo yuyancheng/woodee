@@ -23,7 +23,7 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      iptVal: ''
+      iptVal: '',
       showA: false
     }
   },
