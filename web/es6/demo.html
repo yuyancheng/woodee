@@ -2,6 +2,7 @@
 <html lang="ch">
 
 <head>
+    <link rel="stylesheet" type="text/css" href="main.css" />
     <style>
         body,
         html {
@@ -24,13 +25,13 @@
         .flex-container-2 {
             width: 270px;
             height: 200px;
-            background-color: #F0f0f0;
+            background-color: #f0f0f0;
         }
 
         .flex-container-1 .flex-item {
             padding: 20px;
             height: 20px;
-            background-color: #B1FF84;
+            background-color: #b1ff84;
             /* text-align: center; */
         }
 
@@ -39,17 +40,17 @@
             height: 20px;
             width: 90px;
             flex: 40%;
-            background-color: #B1FF84;
+            background-color: #b1ff84;
             /* text-align: center; */
         }
 
         .flex-container-1 .flex-item:nth-child(1) {
-            background-color: #F5DE25;
+            background-color: #f5de25;
             flex-grow: 0;
         }
 
         .flex-container-1 .flex-item:nth-child(2) {
-            background-color: #90D9F7;
+            background-color: #90d9f7;
             flex-grow: 1;
         }
 
@@ -59,12 +60,12 @@
         }
 
         .flex-container-2 .flex-item:nth-child(1) {
-            background-color: #F5DE25;
+            background-color: #f5de25;
             flex-shrink: 0;
         }
 
         .flex-container-2 .flex-item:nth-child(2) {
-            background-color: #90D9F7;
+            background-color: #90d9f7;
             flex-shrink: 1;
         }
 
@@ -73,6 +74,23 @@
             flex-shrink: 2;
             flex: 60%;
             flex-basis: 10%;
+        }
+        .container-3 {
+        }
+        .container-3 div{
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #90d9f7;
+            margin: 0;
+            padding: 0;
+            vertical-align: bottom;
+        }
+        .container-4 div{
+            float: left;
+            width: 40px;
+            height: 40px;
+            background: #90d9f7;
         }
     </style>
 </head>
@@ -88,9 +106,48 @@
         <div class="flex-item">2</div>
         <div class="flex-item">3</div>
     </div>
+    <div class="container-3">
+        <div>王</div>
+        <div>张</div>
+        <div>李</div>
+    </div>
+
+    <div class="container-4" id="parent">
+        <div id="child">aa</div>
+        <div>bb</div>
+        <div>cc</div>
+    </div>
 </body>
 
 <script>
+    window.onload = function(){
+        var p = document.getElementById('parent');
+        p.addEventListener('click', function(){
+            console.log('parent') ;
+        });
+        var c = document.getElementById('child');
+        c.addEventListener('click', function(){
+            console.log('child') ;
+        });
+        Element.prototype.delegate = function(selection, type, fun) {
+            if (typeof selection === 'string') {
+
+            }
+            document.addEventListener(type, function(e){
+                var elem
+                var evt = e || window.event;
+                var target = evt.srcElement || evt.target;
+                if (target.getAttribute('class')) {
+
+                }
+            });
+            console.log(type);
+        }
+        p.delegate('.ele', 'click');
+
+        var css = document.styleSheets[0];
+        console.log(css.cssRules);
+    }
     function test(a, b) {
         //debugger 想不通就去单步调试
         alert(b);
@@ -98,7 +155,7 @@
             test: function (c) {
                 return test(c, a);
             }
-        }
+        };
     }
 
     // var a = test(100);
@@ -109,23 +166,78 @@
 
     // var c = test(300).test(301);
     // c.test(302);
+    function ready(fn) {
+        if (document.addEventListener) {
+            document.addEventListener(
+                "DOMContentLoaded",
+                function () {
+                    document.removeEventListener(
+                        "DOMContentLoaded",
+                        arguments.callee,
+                        false
+                    );
+                    fn();
+                },
+                false
+            );
+        }
+
+        // 如果IE
+        else if (document.attachEvent) {
+            // 确保当页面是在iframe中加载时，事件依旧会被安全触发
+            document.attachEvent("onreadystatechange", function () {
+                if (document.readyState == "complete") {
+                    document.detachEvent("onreadystatechange", arguments.callee);
+                    fn();
+                }
+            });
+
+            // 如果是IE且页面不在iframe中时，轮询调用doScroll 方法检测DOM是否加载完毕
+            if (
+                document.documentElement.doScroll &&
+                typeof window.frameElement === "undefined"
+            ) {
+                try {
+                    document.documentElement.doScroll("left");
+                } catch (error) {
+                    return setTimeout(arguments.callee, 20);
+                }
+                fn();
+            }
+        }
+    }
+    // window.onload = function () {
+    //     console.log(1);
+    // };
+    // ready(function () {
+    //     console.log(2);
+    // });
 </script>
 <script>
-    var string = 'test';
-    document.write('<scr' + 'ipt> console.log(string);arrfam([1]);console.log(num);</' + 'script>')
+    var string = "test";
+    // document.write('<scr' + 'ipt> console.log(string);arrfam([1]);console.log(num);</' + 'script>')
 </script>
 <script>
     var num = 456;
 
     function arrfam(arr) {
         if (arr instanceof Array) {
-            console.log('is Array');
+            console.log("is Array");
         } else {
-            console.log('is string');
+            console.log("is string");
         }
     }
     arrfam(string);
     arrfam([string]);
+    let givenArr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+    function flatten(arr){
+        while(arr.some(item=>Array.isArray(item))){
+            arr = [].concat(...arr);
+        }
+        return arr;
+    }
+    flatten(givenArr);
+
 </script>
 
 </html>

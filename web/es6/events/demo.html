@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <style>
+        body,
+        html {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .container-1 div{
+            float: left;
+            width: 140px;
+            height: 140px;
+            background: #90d9f7;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-1" id="container_1">
+        <div id="child_1">aa</div>
+        <div id="child_2">bb</div>
+        <div id="child_3">cc</div>
+    </div>
+    <div>
+        <input type="text" id="ipt_1" />
+    </div>
+</body>
+
+<script>
+    window.onload = function(){
+        document.oncontextmenu = function(e){
+            e.preventDefault();
+            console.log(e);
+        };
+        var p = document.getElementById('child_2');
+        p.oncontextmenu = function(e){
+            e.preventDefault();
+            console.log(e);
+        };
+        p.onmouseout = function(e){
+            // e.preventDefault();
+            console.log(e);
+        };
+        console.log(p);
+        p.onclick = function(e){
+            console.log(e);
+        };
+
+        var ipt = document.getElementById('ipt_1');
+        ipt.onkeypress = function(e){
+            console.log(e);
+        };
+    };
+</script>
+
+</html>
