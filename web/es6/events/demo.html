@@ -53,6 +53,11 @@
             console.log(e);
         };
     };
+
+    window.onbeforeunload = function() {
+        alert("Are you sure for leaving?");
+        return false;
+    };
 </script>
 
 </html>
