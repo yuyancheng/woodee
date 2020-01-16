@@ -5,14 +5,6 @@ import java.math.BigDecimal;
 public class DataTypes {
     private static char c;
     private int vi;
-    public static void main(String[] args) {
-
-        DataTypes dt = new DataTypes();
-        //dt.test();
-
-        //dt.charTest();
-        dt.floatTest();
-    }
 
     private void test() {
         short s = 1;
@@ -31,13 +23,14 @@ public class DataTypes {
     }
 
     private void charTest() {
+        char c1 = 97;
         char a = 'a';
         int b = 010;
         int c = 12;
 
-        System.out.printf("char default vlaue:" + String.valueOf(c));
-        System.out.println(c);
-        System.out.println(new Integer(97).equals(a));
+        //System.out.printf("char default vlaue:" + String.valueOf(c));
+        System.out.println(c1);
+        //System.out.println(new Integer(97).equals(a));
     }
 
     private void floatTest() {
@@ -52,5 +45,14 @@ public class DataTypes {
         System.out.println(c == d);
 
         System.out.println(bd.compareTo((BigDecimal.valueOf(b))));
+    }
+
+    public static void main(String[] args) {
+
+        DataTypes dt = new DataTypes();
+        //dt.test();
+
+        dt.charTest();
+        //dt.floatTest();
     }
 }
