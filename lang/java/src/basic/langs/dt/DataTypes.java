@@ -23,13 +23,14 @@ public class DataTypes {
     }
 
     private void charTest() {
+        char c1 = 97;
         char a = 'a';
         int b = 010;
         int c = 12;
 
-        System.out.printf("char default vlaue:" + String.valueOf(c));
-        System.out.println(c);
-        System.out.println(new Integer(97).equals(a));
+        //System.out.printf("char default vlaue:" + String.valueOf(c));
+        System.out.println(c1);
+        //System.out.println(new Integer(97).equals(a));
     }
 
     private void intTest() {
@@ -89,5 +90,7 @@ public class DataTypes {
 
         dt.arrTest();
 
+        dt.charTest();
+        //dt.floatTest();
     }
 }
