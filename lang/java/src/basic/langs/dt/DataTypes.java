@@ -5,14 +5,6 @@ import java.math.BigDecimal;
 public class DataTypes {
     private static char c;
     private int vi;
-    public static void main(String[] args) {
-
-        DataTypes dt = new DataTypes();
-        //dt.test();
-
-        //dt.charTest();
-        dt.floatTest();
-    }
 
     private void test() {
         short s = 1;
@@ -40,6 +32,19 @@ public class DataTypes {
         System.out.println(new Integer(97).equals(a));
     }
 
+    private void intTest() {
+        Integer i = 1000;
+        int a = new Integer(1000);
+        System.out.println(i.intValue() == a);
+
+        int[] ia = {12,32,34};
+        for (int j = ia.length - 1; j >= 0; j--) {
+
+        }
+        int[] aa = new int[ia.length];
+        System.out.println(aa.length);
+    }
+
     private void floatTest() {
         float a = 10.f;
         double b = 2.;
@@ -52,5 +57,37 @@ public class DataTypes {
         System.out.println(c == d);
 
         System.out.println(bd.compareTo((BigDecimal.valueOf(b))));
+    }
+    int[] ia = new int[]{1,2,3,4,5};
+    int[] ib = new int[]{1,2,3,4,5};
+    private void setArr(int[] arr) {
+        //arr[0] = 2;
+        System.out.println(arr);
+        arr = new int[]{10,20};
+        int[] brr = arr;
+        arr = new int[]{30,40};
+        //arr[0] = 30;
+
+        System.out.println(arr[0]);
+        System.out.println(brr[0]);
+    }
+
+    private void arrTest() {
+        //System.out.println(ia);
+        setArr(ia);
+    }
+
+    public static void main(String[] args) {
+
+        DataTypes dt = new DataTypes();
+        //dt.test();
+        //dt.charTest();
+        // dt.intTest();
+        //dt.floatTest();
+        //dt.intTest();
+        //DataTypes dt = new DataTypes();
+
+        dt.arrTest();
+
     }
 }
