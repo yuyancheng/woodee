@@ -17,6 +17,6 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "ajv": "^6.10.0"
+    "ajv": "^6.12.3"
   }
 }
