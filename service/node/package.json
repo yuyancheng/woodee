@@ -21,7 +21,7 @@
   "main": "myApp.js",
   "devDependencies": {
     "latest": "^0.2.0",
-    "webpack": "^4.33.0"
+    "webpack": "^5.75.0"
   },
   "repository": {
     "type": "git",
